@@ -11,6 +11,7 @@ public class OroceniRacun extends BankovniRacun {
 
     @Override
     public boolean isplata(double iznos) {
+        System.out.println("Nije moguća isplata s oročenog računa");
         return false;
     }
 

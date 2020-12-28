@@ -9,14 +9,6 @@ public abstract class Vlasnik {
         this.oib = oib;
     }
 
-    public String getOib() {
-        return oib;
-    }
-
-    public String getAdresa() {
-        return adresa;
-    }
-
     public void setAdresa(String adresa) {
         this.adresa = adresa;
     }

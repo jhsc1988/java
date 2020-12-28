@@ -4,7 +4,7 @@ public abstract class BankovniRacun {
     final private String brojRacuna;
     private final double pocetnoStanje;
     private final Promet[] prometi;
-    private Vlasnik vlasnik;
+    private Vlasnik vlasnik; // fizicka ili pravna osoba
     private int index;
 
     public BankovniRacun(String brojRacuna, Vlasnik vlasnik) {
@@ -39,10 +39,6 @@ public abstract class BankovniRacun {
 
     public Vlasnik getVlasnik() {
         return vlasnik;
-    }
-
-    public void setVlasnik(Vlasnik vlasnik) {
-        this.vlasnik = vlasnik;
     }
 
     public double getPocetnoStanje() {

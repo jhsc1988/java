@@ -2,8 +2,8 @@ package hr.vsite.java;
 
 public class PravnaOsoba extends Vlasnik {
 
-    private final String naziv;
-    private final FizickaOsoba vlasnik;
+    private String naziv;
+    private FizickaOsoba vlasnik;
 
     public PravnaOsoba(String oib, String naziv, FizickaOsoba vlasnik) {
         super(oib);
@@ -17,6 +17,14 @@ public class PravnaOsoba extends Vlasnik {
 
     public FizickaOsoba getVlasnik() {
         return vlasnik;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
+    public void setVlasnik(FizickaOsoba vlasnik) {
+        this.vlasnik = vlasnik;
     }
 
     @Override

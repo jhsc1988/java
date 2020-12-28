@@ -16,13 +16,13 @@ public class BubbleSort {
         //-------ˇˇˇˇˇ1. dio vježbeˇˇˇˇˇ-----------
         // inicijaliziramo niz sa slučajnim brojevima od 0 do 255
         //zakomentirajte poziv kada radite 2. dio vježbe
-        initSequence(sequence);
+        //initSequence(sequence);
         //-------^^^^^1. dio vježbe^^^^^-----------
 
 
         //-------ˇˇˇˇˇ2. dio vježbeˇˇˇˇˇ-----------
         //odkomentirajte kada radite 2. dio vježbe
-        //sequence = initUserSequence();
+        sequence = initUserSequence();
         //-------^^^^^2. dio vježbe^^^^^-----------
 
 
@@ -48,7 +48,14 @@ public class BubbleSort {
         //olakšava parsiranje toka znakova koji korisnik upisuje
         Scanner s = new Scanner(System.in);
         // ----------ˇˇˇˇvaš kod ide ovdjeˇˇˇˇ--------------
+        System.out.println("Unesite duljinu niza: ");
+        sequenceLength = getNextInt(s);
+        sequence = new int[sequenceLength];
 
+        for (int i = 0; i < sequence.length; ++i) {
+            System.out.printf("Unesite član broj %d\n", i);
+            sequence[i] = getNextInt(s);
+        }
         // ----------^^^^vaš kod ide ovdje^^^^--------------
         return sequence;
     }
