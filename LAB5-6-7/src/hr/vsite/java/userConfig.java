@@ -3,26 +3,23 @@ package hr.vsite.java;
 import java.io.*;
 import java.util.Properties;
 
-public class UserConfig {
+public class userConfig {
 
     private static final String propertiesFile = "chat.properties";
     private static final String hostPropertieName = "host";
     private static final String portPropertieName = "port";
     private static final String userPropertieName = "user";
+
     private static String host;
     private static int port;
     private static String korisnik;
-
-    static {
-        loadParams();
-    }
 
     public static String getHost() {
         return host;
     }
 
     public static void setHost(String host) {
-        UserConfig.host = host;
+        userConfig.host = host;
     }
 
     public static int getPort() {
@@ -30,7 +27,7 @@ public class UserConfig {
     }
 
     public static void setPort(int port) {
-        UserConfig.port = port;
+        userConfig.port = port;
     }
 
     public static String getKorisnik() {
@@ -38,7 +35,7 @@ public class UserConfig {
     }
 
     public static void setKorisnik(String korisnik) {
-        UserConfig.korisnik = korisnik;
+        userConfig.korisnik = korisnik;
     }
 
     public static void loadParams() {
@@ -56,7 +53,8 @@ public class UserConfig {
         try {
             // pokušavaju se učitati parametri
             props.load(is);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
         // prvi parametar: naziv postavke
         // drugi parametar: ako nije nađena vrijednost onda se vraća drugi
         // parametar
@@ -78,4 +76,5 @@ public class UserConfig {
             e.printStackTrace();
         }
     }
+
 }

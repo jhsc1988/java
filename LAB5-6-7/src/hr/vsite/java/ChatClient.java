@@ -10,12 +10,26 @@ public class ChatClient {
     private JTextArea textArea1;
     private JTextField textField1;
     private JButton button1;
+    private JButton Postavke;
+
 
     public ChatClient() {
+        userConfig postavke = new userConfig();
+        postavke.loadParams();
+
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sendData();
+            }
+        });
+        Postavke.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfigWindow dialog = new ConfigWindow();
+
+                dialog.setModal(true);
+                dialog.setVisible(true);
             }
         });
     }
@@ -31,8 +45,9 @@ public class ChatClient {
         frame.setContentPane(new ChatClient().masterPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(600, 400));
-        frame.pack();
+        // frame.pack(); // ovako ne radi setSize();
         frame.setVisible(true);
+
     }
 
     {
@@ -83,7 +98,7 @@ public class ChatClient {
         gbc.insets = new Insets(0, 2, 0, 2);
         masterPanel.add(textField1, gbc);
         button1 = new JButton();
-        button1.setText("Button");
+        button1.setText("Send");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 3;
@@ -109,10 +124,17 @@ public class ChatClient {
         masterPanel.add(spacer5, gbc);
         final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
+        gbc.gridx = 5;
         gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         masterPanel.add(spacer6, gbc);
+        Postavke = new JButton();
+        Postavke.setText("Postavke");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        masterPanel.add(Postavke, gbc);
     }
 
     /**

@@ -4,37 +4,77 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class ConfigWindow {
-    private JPanel dialog;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JButton snimiButton;
+public class ConfigWindow extends JDialog {
+
+    private JPanel Postavke;
+    private JTextField host;
+    private JTextField port;
+    private JTextField korisnik;
+    private JButton spremiButton;
     private JButton odustaniButton;
-    //private Container masterPanel;
+
+    public int checkA() {
+        int confirmed = JOptionPane.showOptionDialog(Postavke,
+                "Da li ste sigurni da želite zatvoriti prozor bez snimanja promjena?", "Pitanje!",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, new String[]{"Da", "Ne"}, "Ne");
+        return confirmed;
+    }
 
     public ConfigWindow() {
-        snimiButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent arg0) {
+
+                String s = host.getText();
+                String s2 = userConfig.getHost();
+
+                if (host.getText().equals(userConfig.getHost()) && port.getText().equals(String.valueOf(userConfig.getPort())) && korisnik.getText().equals(userConfig.getKorisnik())) {
+                    dispose();
+                } else
+                    if (checkA() == 0)
+                        dispose();
             }
         });
+
+        this.setContentPane(this.Postavke);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.pack();
+
+        this.host.setText(userConfig.getHost());
+        this.port.setText(String.valueOf(userConfig.getPort()));
+        this.korisnik.setText(userConfig.getKorisnik());
+
         odustaniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (checkA() == 0)
+                    dispose();
             }
         });
-    }
 
-    public static void main(String[] args) {
-        JDialog dialog = new JDialog();
-        dialog.setContentPane(new ConfigWindow().dialog);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.pack();
-        dialog.setVisible(true);
+        spremiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (host.getText().equals(userConfig.getHost()) && port.getText().equals(String.valueOf(userConfig.getPort())) && korisnik.getText().equals(userConfig.getKorisnik())) {
+                    dispose();
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+                    userConfig.setHost(host.getText());
+                    userConfig.setPort(Integer.valueOf(port.getText()));
+                    userConfig.setKorisnik(korisnik.getText());
+
+                    System.out.println("parametri su različiti");
+                    userConfig.saveParamChanges();
+                    dispose();
+                }
+            }
+        });
     }
 
     {
@@ -52,8 +92,8 @@ public class ConfigWindow {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        dialog = new JPanel();
-        dialog.setLayout(new GridBagLayout());
+        Postavke = new JPanel();
+        Postavke.setLayout(new GridBagLayout());
         final JLabel label1 = new JLabel();
         label1.setText("Host:");
         GridBagConstraints gbc;
@@ -61,112 +101,99 @@ public class ConfigWindow {
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        dialog.add(label1, gbc);
+        Postavke.add(label1, gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        dialog.add(spacer1, gbc);
+        Postavke.add(spacer1, gbc);
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
-        dialog.add(spacer2, gbc);
-        textField1 = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        dialog.add(textField1, gbc);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        dialog.add(spacer3, gbc);
-        final JPanel spacer4 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        dialog.add(spacer4, gbc);
+        Postavke.add(spacer2, gbc);
         final JLabel label2 = new JLabel();
         label2.setText("Port:");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
-        dialog.add(label2, gbc);
-        final JPanel spacer5 = new JPanel();
+        Postavke.add(label2, gbc);
+        final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.fill = GridBagConstraints.VERTICAL;
-        dialog.add(spacer5, gbc);
+        Postavke.add(spacer3, gbc);
         final JLabel label3 = new JLabel();
-        label3.setText("Korisnik");
+        label3.setText("Korisnik:");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
-        dialog.add(label3, gbc);
-        textField2 = new JTextField();
+        Postavke.add(label3, gbc);
+        host = new JTextField();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        Postavke.add(host, gbc);
+        final JPanel spacer4 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        Postavke.add(spacer4, gbc);
+        port = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        dialog.add(textField2, gbc);
-        textField3 = new JTextField();
+        Postavke.add(port, gbc);
+        korisnik = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        dialog.add(textField3, gbc);
-        final JPanel spacer6 = new JPanel();
+        Postavke.add(korisnik, gbc);
+        final JPanel spacer5 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.VERTICAL;
-        dialog.add(spacer6, gbc);
+        Postavke.add(spacer5, gbc);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 7;
         gbc.fill = GridBagConstraints.BOTH;
-        dialog.add(panel1, gbc);
-        final JPanel spacer7 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer7, gbc);
-        final JPanel spacer8 = new JPanel();
+        Postavke.add(panel1, gbc);
+        spremiButton = new JButton();
+        spremiButton.setText("Spremi");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer8, gbc);
-        final JPanel spacer9 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer9, gbc);
-        snimiButton = new JButton();
-        snimiButton.setText("Snimi");
+        panel1.add(spremiButton, gbc);
+        final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(snimiButton, gbc);
+        panel1.add(spacer6, gbc);
+        final JPanel spacer7 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel1.add(spacer7, gbc);
         odustaniButton = new JButton();
         odustaniButton.setText("Odustani");
         gbc = new GridBagConstraints();
@@ -174,25 +201,32 @@ public class ConfigWindow {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(odustaniButton, gbc);
-        final JPanel spacer10 = new JPanel();
+        final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
+        gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer10, gbc);
-        final JPanel spacer11 = new JPanel();
+        panel1.add(spacer8, gbc);
+        final JPanel spacer9 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        Postavke.add(spacer9, gbc);
+        final JPanel spacer10 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        dialog.add(spacer11, gbc);
+        Postavke.add(spacer10, gbc);
     }
 
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return dialog;
+        return Postavke;
     }
 
 }
