@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="CP1250"?>
+<!-- scan zastavice definira da li se u toku rada plikacije prate promjene konfiguracije
+scanPeriod svakih koliko sekundi se provjerava da li je došlo do promjene datoteke -->
+<configuration scan="true" scanPeriod="10 seconds">
+    <!--definicija prvog appender-a. Ispisuje se na konzolu -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd.MM.yyyy. HH:mm:ss} %level [%thread] %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--definicija drugog appender-a. Ispisuje se u datoteku, novu svakog dana -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>chat.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>chat.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <!-- možemo i ograničiti veličinu svake datoteke (kada je datoteka veća
+            od limita (100MB) napravi se nova) -->
+            <!--<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>-->
+            <!-- možemo definirati i koliko maksimalno datoteka se može napraviti -->
+            <!--<maxHistory>30</maxHistory>-->
+        </rollingPolicy>
+        <encoder>
+            <!--ispisuje se datum razina-poruke [naziv threda] naziv-loggera(max 20 zankova) - poruka-->
+            <pattern>%d{dd.MM.yyyy. HH:mm:ss} %level [%thread] %logger{20} - %msg%n</pattern>
+        </encoder>
+        <Encoding>utf-8</Encoding>
+    </appender>
+    <!-- definiraju se postavke logger-a
+    svaki logger čije ime počinje sa hr.vsite se ispisuje na appender-e STDOUT i FILE definirane gore
+    pod level se može definirati od koje razine se zapisuju poruke; ALL – poruke svih razina
+    -->
+    <logger name="hr.vsite" additivity="false" level="ERROR">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="hr.vsite.java.JFrameTest" additivity="false" level="ALL">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <!--root logger ili default postavke -->
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
