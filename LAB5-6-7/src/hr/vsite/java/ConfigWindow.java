@@ -1,11 +1,14 @@
 package hr.vsite.java;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.util.Locale;
 
 public class ConfigWindow extends JDialog {
 
@@ -16,6 +19,9 @@ public class ConfigWindow extends JDialog {
     private JButton spremiButton;
     private JButton odustaniButton;
 
+    // logger
+    private static final Logger log = (Logger) LoggerFactory.getLogger(ChatClient.class);
+
     public int checkA() {
         int confirmed = JOptionPane.showOptionDialog(Postavke,
                 "Da li ste sigurni da želite zatvoriti prozor bez snimanja promjena?", "Pitanje!",
@@ -25,16 +31,16 @@ public class ConfigWindow extends JDialog {
     }
 
     public ConfigWindow() {
+        log.info("ConfigWindow Enter");
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
 
-                if (host.getText().equals(userConfig.getHost()) && port.getText().equals(String.valueOf(userConfig.getPort())) && korisnik.getText().equals(userConfig.getKorisnik())) {
+                if (host.getText().equals(UserConfig.getHost()) && port.getText().equals(String.valueOf(UserConfig.getPort())) && korisnik.getText().equals(UserConfig.getKorisnik())) {
                     dispose();
-                } else
-                    if (checkA() == 0)
-                        dispose();
+                } else if (checkA() == 0)
+                    dispose();
             }
         });
 
@@ -42,9 +48,9 @@ public class ConfigWindow extends JDialog {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pack();
 
-        this.host.setText(userConfig.getHost());
-        this.port.setText(String.valueOf(userConfig.getPort()));
-        this.korisnik.setText(userConfig.getKorisnik());
+        this.host.setText(UserConfig.getHost());
+        this.port.setText(String.valueOf(UserConfig.getPort()));
+        this.korisnik.setText(UserConfig.getKorisnik());
 
         odustaniButton.addActionListener(new ActionListener() {
             @Override
@@ -57,20 +63,72 @@ public class ConfigWindow extends JDialog {
         spremiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (host.getText().equals(userConfig.getHost()) && port.getText().equals(String.valueOf(userConfig.getPort())) && korisnik.getText().equals(userConfig.getKorisnik())) {
+                if (host.getText().equals(UserConfig.getHost()) && port.getText().equals(String.valueOf(UserConfig.getPort())) && korisnik.getText().equals(UserConfig.getKorisnik())) {
                     dispose();
                 } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-                    userConfig.setHost(host.getText());
-                    userConfig.setPort(Integer.valueOf(port.getText()));
-                    userConfig.setKorisnik(korisnik.getText());
+                    UserConfig.setHost(host.getText());
+                    UserConfig.setPort(Integer.valueOf(port.getText()));
+                    UserConfig.setKorisnik(korisnik.getText());
 
-                    userConfig.saveParamChanges();
+                    UserConfig.saveParamChanges();
                     dispose();
                 }
             }
         });
+        host.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+                    UserConfig.setHost(host.getText());
+                    UserConfig.setPort(Integer.valueOf(port.getText()));
+                    UserConfig.setKorisnik(korisnik.getText());
+
+                    UserConfig.saveParamChanges();
+                    dispose();
+                }
+
+            }
+        });
+
+        port.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+                    UserConfig.setHost(host.getText());
+                    UserConfig.setPort(Integer.valueOf(port.getText()));
+                    UserConfig.setKorisnik(korisnik.getText());
+
+                    UserConfig.saveParamChanges();
+                    dispose();
+                }
+
+            }
+        });
+
+        korisnik.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+                    UserConfig.setHost(host.getText());
+                    UserConfig.setPort(Integer.valueOf(port.getText()));
+                    UserConfig.setKorisnik(korisnik.getText());
+
+                    UserConfig.saveParamChanges();
+                    dispose();
+                }
+
+            }
+        });
+
+
     }
 
     {
@@ -91,6 +149,8 @@ public class ConfigWindow extends JDialog {
         Postavke = new JPanel();
         Postavke.setLayout(new GridBagLayout());
         final JLabel label1 = new JLabel();
+        Font label1Font = this.$$$getFont$$$("Segoe UI", -1, 10, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
         label1.setText("Host:");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
@@ -111,6 +171,8 @@ public class ConfigWindow extends JDialog {
         gbc.fill = GridBagConstraints.VERTICAL;
         Postavke.add(spacer2, gbc);
         final JLabel label2 = new JLabel();
+        Font label2Font = this.$$$getFont$$$("Segoe UI", -1, 10, label2.getFont());
+        if (label2Font != null) label2.setFont(label2Font);
         label2.setText("Port:");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -124,6 +186,8 @@ public class ConfigWindow extends JDialog {
         gbc.fill = GridBagConstraints.VERTICAL;
         Postavke.add(spacer3, gbc);
         final JLabel label3 = new JLabel();
+        Font label3Font = this.$$$getFont$$$("Segoe UI", -1, 10, label3.getFont());
+        if (label3Font != null) label3.setFont(label3Font);
         label3.setText("Korisnik:");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -172,6 +236,9 @@ public class ConfigWindow extends JDialog {
         gbc.fill = GridBagConstraints.BOTH;
         Postavke.add(panel1, gbc);
         spremiButton = new JButton();
+        spremiButton.setBackground(new Color(-13766032));
+        Font spremiButtonFont = this.$$$getFont$$$("Segoe UI", -1, 10, spremiButton.getFont());
+        if (spremiButtonFont != null) spremiButton.setFont(spremiButtonFont);
         spremiButton.setText("Spremi");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -191,6 +258,9 @@ public class ConfigWindow extends JDialog {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer7, gbc);
         odustaniButton = new JButton();
+        odustaniButton.setBackground(new Color(-13766032));
+        Font odustaniButtonFont = this.$$$getFont$$$("Segoe UI", -1, 10, odustaniButton.getFont());
+        if (odustaniButtonFont != null) odustaniButton.setFont(odustaniButtonFont);
         odustaniButton.setText("Odustani");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
@@ -216,6 +286,28 @@ public class ConfigWindow extends JDialog {
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         Postavke.add(spacer10, gbc);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
+        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**

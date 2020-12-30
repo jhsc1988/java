@@ -3,7 +3,10 @@ package hr.vsite.java;
 import java.io.*;
 import java.util.Properties;
 
-public class userConfig {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class UserConfig {
 
     private static final String propertiesFile = "chat.properties";
     private static final String hostPropertieName = "host";
@@ -14,12 +17,15 @@ public class userConfig {
     private static int port;
     private static String korisnik;
 
+    // logger
+    private static final Logger log = LoggerFactory.getLogger(UserConfig.class);
+
     public static String getHost() {
         return host;
     }
 
     public static void setHost(String host) {
-        userConfig.host = host;
+        UserConfig.host = host;
     }
 
     public static int getPort() {
@@ -27,7 +33,7 @@ public class userConfig {
     }
 
     public static void setPort(int port) {
-        userConfig.port = port;
+        UserConfig.port = port;
     }
 
     public static String getKorisnik() {
@@ -35,10 +41,11 @@ public class userConfig {
     }
 
     public static void setKorisnik(String korisnik) {
-        userConfig.korisnik = korisnik;
+        UserConfig.korisnik = korisnik;
     }
 
     public static void loadParams() {
+        log.info("loadParams Enter");
         Properties props = new Properties();
         InputStream is = null;
         // Najprije pokušavamo učitati iz lokalnog direktorija

@@ -13,6 +13,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
+          <font name="Segoe UI" size="10"/>
           <text value="Host:"/>
         </properties>
       </component>
@@ -34,6 +35,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
+          <font name="Segoe UI" size="10"/>
           <text value="Port:"/>
         </properties>
       </component>
@@ -49,6 +51,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
+          <font name="Segoe UI" size="10"/>
           <text value="Korisnik:"/>
         </properties>
       </component>
@@ -105,6 +108,8 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-13766032"/>
+              <font name="Segoe UI" size="10"/>
               <text value="Spremi"/>
             </properties>
           </component>
@@ -126,6 +131,8 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <background color="-13766032"/>
+              <font name="Segoe UI" size="10"/>
               <text value="Odustani"/>
             </properties>
           </component>
