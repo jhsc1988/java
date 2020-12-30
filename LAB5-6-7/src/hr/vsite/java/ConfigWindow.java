@@ -66,7 +66,6 @@ public class ConfigWindow extends JDialog {
                     userConfig.setPort(Integer.valueOf(port.getText()));
                     userConfig.setKorisnik(korisnik.getText());
 
-                    System.out.println("parametri su različiti");
                     userConfig.saveParamChanges();
                     dispose();
                 }
