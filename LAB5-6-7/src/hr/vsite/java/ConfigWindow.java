@@ -30,9 +30,6 @@ public class ConfigWindow extends JDialog {
             @Override
             public void windowClosing(WindowEvent arg0) {
 
-                String s = host.getText();
-                String s2 = userConfig.getHost();
-
                 if (host.getText().equals(userConfig.getHost()) && port.getText().equals(String.valueOf(userConfig.getPort())) && korisnik.getText().equals(userConfig.getKorisnik())) {
                     dispose();
                 } else
