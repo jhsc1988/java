@@ -8,15 +8,22 @@ import java.util.Properties;
 
 public class UserConfig {
 
+    /**
+     * Klasa sadrži metode za
+     * čitanje i pisanje postavki iz chat.properties
+     * datoteke
+     */
     private static final String propertiesFile = "chat.properties";
     private static final String hostPropertieName = "host";
     private static final String portPropertieName = "port";
     private static final String userPropertieName = "user";
-    // logger
-    private static final Logger log = LoggerFactory.getLogger(UserConfig.class);
+
     private static String host;
     private static int port;
     private static String korisnik;
+
+    // logger
+    private static final Logger log = LoggerFactory.getLogger(UserConfig.class);
 
     public static String getHost() {
         log.info("getHost() Enter");
