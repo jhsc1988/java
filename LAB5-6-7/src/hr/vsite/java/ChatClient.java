@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.Window;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class ChatClient {
@@ -35,11 +37,19 @@ public class ChatClient {
     private BufferedReader br;
     private PrintWriter pw;
 
+    // time
+    private SimpleDateFormat formatter;
+    private Date date;
+
+
     // logger
     private static final Logger log = (Logger) LoggerFactory.getLogger(ChatClient.class);
 
     public ChatClient() {
+
         log.info("ChatClient() Enter");
+
+        formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
         frame = new JFrame("ChatClient");
         frame.setContentPane(masterPanel);
@@ -82,8 +92,10 @@ public class ChatClient {
     private void sendData() {
         log.info("sendData() Enter");
 
+        date = new Date();
+
         String text = textField1.getText();
-        textArea1.append(text + "\n");
+        textArea1.append(formatter.format(date) + " " + UserConfig.getKorisnik() + ": " + text + "\n");
         textField1.setText("");
 
         log.info("sendData() Exit");

@@ -22,7 +22,19 @@ public class ConfigWindow extends JDialog {
     // logger
     private static final Logger log = (Logger) LoggerFactory.getLogger(ChatClient.class);
 
-    public int checkA() {
+    public void CheckEnter(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            UserConfig.setHost(host.getText());
+            UserConfig.setPort(Integer.valueOf(port.getText()));
+            UserConfig.setKorisnik(korisnik.getText());
+
+            UserConfig.saveParamChanges();
+            dispose();
+        }
+    }
+
+    public int CheckAnswer() {
         int confirmed = JOptionPane.showOptionDialog(Postavke,
                 "Da li ste sigurni da želite zatvoriti prozor bez snimanja promjena?", "Pitanje!",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -31,15 +43,15 @@ public class ConfigWindow extends JDialog {
     }
 
     public ConfigWindow() {
+
         log.info("ConfigWindow Enter");
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent arg0) {
-
                 if (host.getText().equals(UserConfig.getHost()) && port.getText().equals(String.valueOf(UserConfig.getPort())) && korisnik.getText().equals(UserConfig.getKorisnik())) {
                     dispose();
-                } else if (checkA() == 0)
+                } else if (CheckAnswer() == 0)
                     dispose();
             }
         });
@@ -55,7 +67,7 @@ public class ConfigWindow extends JDialog {
         odustaniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (checkA() == 0)
+                if (CheckAnswer() == 0)
                     dispose();
             }
         });
@@ -66,7 +78,6 @@ public class ConfigWindow extends JDialog {
                 if (host.getText().equals(UserConfig.getHost()) && port.getText().equals(String.valueOf(UserConfig.getPort())) && korisnik.getText().equals(UserConfig.getKorisnik())) {
                     dispose();
                 } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
                     UserConfig.setHost(host.getText());
                     UserConfig.setPort(Integer.valueOf(port.getText()));
@@ -80,33 +91,15 @@ public class ConfigWindow extends JDialog {
         host.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-                    UserConfig.setHost(host.getText());
-                    UserConfig.setPort(Integer.valueOf(port.getText()));
-                    UserConfig.setKorisnik(korisnik.getText());
-
-                    UserConfig.saveParamChanges();
-                    dispose();
-                }
-
+                CheckEnter(e);
             }
         });
+
 
         port.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-                    UserConfig.setHost(host.getText());
-                    UserConfig.setPort(Integer.valueOf(port.getText()));
-                    UserConfig.setKorisnik(korisnik.getText());
-
-                    UserConfig.saveParamChanges();
-                    dispose();
-                }
+                CheckEnter(e);
 
             }
         });
@@ -114,21 +107,9 @@ public class ConfigWindow extends JDialog {
         korisnik.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-                    UserConfig.setHost(host.getText());
-                    UserConfig.setPort(Integer.valueOf(port.getText()));
-                    UserConfig.setKorisnik(korisnik.getText());
-
-                    UserConfig.saveParamChanges();
-                    dispose();
-                }
-
+                CheckEnter(e);
             }
         });
-
-
     }
 
     {
