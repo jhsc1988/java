@@ -39,6 +39,7 @@ public class ChatClient {
     private static final Logger log = (Logger) LoggerFactory.getLogger(ChatClient.class);
 
     public ChatClient() {
+        log.info("ChatClient() Enter");
 
         frame = new JFrame("ChatClient");
         frame.setContentPane(masterPanel);
@@ -75,16 +76,20 @@ public class ChatClient {
                     sendData();
             }
         });
+        log.info("ChatClient() Exit");
     }
 
     private void sendData() {
+        log.info("sendData() Enter");
+
         String text = textField1.getText();
         textArea1.append(text + "\n");
         textField1.setText("");
+
+        log.info("sendData() Exit");
     }
 
     public static void main(String[] args) {
-
         log.info("application start");
 
         ChatClient window = new ChatClient();
@@ -92,7 +97,9 @@ public class ChatClient {
     }
 
     private void connect() {
+        log.info("connect() Enter");
         try {
+
             soc = new Socket(UserConfig.getHost(), UserConfig.getPort());
             pw = new PrintWriter(soc.getOutputStream());
             br = new BufferedReader(new
@@ -116,6 +123,7 @@ public class ChatClient {
             log.error("IO iznimka", e);
             frame.dispose();
         }
+        log.info("connect() Exit");
     }
 
 
