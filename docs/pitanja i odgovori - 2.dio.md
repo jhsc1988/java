@@ -18,7 +18,7 @@ Interface ne može implementirati niti jednu metodu, dok apstraktna klasa može.
 U deklaraciji interface-a dva su elementa nužna: ključna riječ interface i ime interface-a
 
 primjer:
-```JAVA
+```java
 public interface InterfaceName extends SuperInterface {
     InterfaceBody
 }
@@ -46,7 +46,7 @@ Sve konstantne vrijednosti definirane u interface-u su implicitno `public`, `sta
 Enum tip (klasa) definira konačni set naziva (enum konstanti ili imenovanih konstanti) i vrijednosti. Za definiranje enum tipa koristi se ključna riječ enum.
 
 primjer:
-```JAVA
+```java
 enum MachineState { BUSY, IDLE, BLOCKED }
 ```
 
@@ -81,7 +81,7 @@ static EnumTypeName[] values()
 
 #### 100. Opišite metodu `valueOf()` enum tipa.
 
-```JAVA
+```java
 Static EnumTypeName valueOf(String name)
 ```
 - Vraća enum konstantu sa specificiranim nazivom. 
@@ -89,7 +89,7 @@ Static EnumTypeName valueOf(String name)
 
 #### 101. Opišite metodu `ordinal()` enum tipa.
 
-```JAVA
+```java
 final int ordinal()
 ```
 - Vraća redni broj enum konstante (pozicija u deklaraciji enum konstanti). 
@@ -116,7 +116,7 @@ TODO: primjer, multiple inheritance
 
 Deklarira se pomoću iskaza package na vrhu datoteke s izvornim kodom u kojem je definirana klasa ili interface
 
-```JAVA
+```java
 package graphics;
 
 public class Circle extends Graphic implements Draggable
@@ -143,17 +143,17 @@ Za korištenje javnih package članova izvan paketa, mora se učiniti jedno od s
 
 Pomoću import iskaza na početku datoteke prije bilo koje definicije klase ili interface-a, ali nakon `package` iskaza.
 
-```JAVA
+```java
 import graphics.Circle;
 ```
 
 - Sada se klasa `Circle` može koristiti pomoću jednostavnog imena:
-```JAVA
+```java
 Circle myCircle = new Circle();
 ```
 
 - Uvoz cijelog paketa:
-```JAVA
+```java
 import graphics.*;
 ```
 
@@ -187,17 +187,17 @@ Iznimka je događaj koji ometa prirodni tok izvršavanja programa
 
 #### 112. Navedite osnovne metode Throwable klase.
 
-```JAVA
+```java
 String getMessage();
 ```
 - vraća poruku iznimke
 
-```JAVA
+```java
 void printStackTrace();
 ```
 - ispisuje se na standardni izlazni tok stog poziva metoda u trenutku kada je bačena iznimka
 
-```JAVA
+```java
 String toString();
 ```
 - vraća se kratki opis iznimke koji se najčešće sastoji od naziva klase i stringa kojeg vraća `getMessage()` metoda
@@ -234,7 +234,7 @@ TODO: opis
 
 #### 117. Kako se postiže općeniti exception handler (hvata vište tipova iznimki)?
 
-```JAVA
+```java
 catch (SomeThrowableObject variableName) {
     Java statements
 }
@@ -244,7 +244,7 @@ catch (SomeThrowableObject variableName) {
 
 Iskaz `throw` služi za bacanje iznimki:
 
-```JAVA
+```java
 …
 if (size == 0)
     throw new EmptyStackException(„opis iznimke“);
@@ -260,7 +260,7 @@ Pomoću iskaza `throws`:
 
 - u `throws` iskazu metode moraju se navesti sve provjeravane iznimke koje nisu obrađene u metodi
 
-```JAVA
+```java
 someMethod(…)
     throws <ExceptionType1>, <ExceptionType2>, …,<ExceptionTypen>
 ```
@@ -283,14 +283,14 @@ Iznimke su definirane kao klase i mogu imati svoje članove (varijable, metode, 
 
 `assert` iskazi se koriste u kodu da se dokumentiraju i provjeravaju pretpostavke pod kojima je kod napisan
 
-```JAVA
+```java
 assert <boolean izraz> ; // Jednostavni oblik
 assert <boolean izraz > : <izraz poruke>;
 ```
 
 ekvivalentno:
 
-```JAVA
+```java
 if (<omogućeni asserti> && !<boolean izraz>)
     // Jednostavni oblik
     throw new AssertionError();
@@ -427,13 +427,13 @@ Pomoću algoritma koji se zove **fixed priority scheduling** – raspoređuje ni
 
 Statičkom `yield()` metodom klase `Thread` – trenutna nit prepušta CPU ako postoje druge niti koje čekaju svoje vrijeme
 
-```JAVA
+```java
 Thread.yield();
 ```
 
 Statičkom metodom sleep klase `Thread` – zaustavlja trenutnu nit 
 
-```JAVA
+```java
 Thread.sleep(long millis)
 Thread.sleep(long millis, int nanos)
 ```
@@ -460,7 +460,7 @@ sinkronizirane metode
 
 - Kod sinkroniziranih blokova može se ograditi proizvoljni dio koda i odrediti objekt čija se brava koristi za zaključavanje
 
-```JAVA
+```java
 synchronized (<izraz koji daje referencu na objekt>) { 
     <blok koda> 
 }
@@ -502,7 +502,7 @@ Svaka nit je član grupe niti. Grupe omogućavaju mehanizam manipuliranja nitima
 
 Primjer konstruktora:
 
-```JAVA
+```java
 Thread(ThreadGroup group, Runnable target)
 …
 
