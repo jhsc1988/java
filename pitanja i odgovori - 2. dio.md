@@ -1,7 +1,6 @@
 
 Table of Contents
 <!--ts-->
-
          * [INTERFACE](#interface)
             * [88. Što je to interface?](#88-\xC5\xA1to-je-to-interface)
             * [89. Navedite razlike između interface-a i apstraktne klase?](#89-navedite-razlike-izme\xC4\x91u-interface-a-i-apstraktne-klase)
