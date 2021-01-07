@@ -1,3 +1,5 @@
+### INTERFACE
+
 **88. Što je to interface?**
 
 Interface predstavlja imenovani skup metoda bez implementacije. Interface također može definirati konstante. Klasa koja implementira interface, slaže se da će implementirati sve metode definirane u interface-u.
@@ -32,6 +34,8 @@ Sve metode deklarirane u interface-u implicitno su `public` i `abstract` (pa se 
 
 Sve konstantne vrijednosti definirane u interface-u su implicitno `public`, `static` i `final`.
 
+### ENUM
+
 **94. Navedite elemente deklaracije enum tipa?**
 
 Enum tip (klasa) definira konačni set naziva (enum konstanti ili imenovanih konstanti) i vrijednosti. Za definiranje enum tipa koristi se ključna riječ enum.
@@ -63,14 +67,14 @@ Prilikom učitavanja enum tipa (klase). Pošto su enum konstante `static` tada s
 
 Enum nasljeđuje klasu `java.lang.Enum`, i time dobiva set ponašanja (metode), tretiraju se kao posebne vrste klasa te su mu članovi predefinirani (`static`).
 
-**99. Opišite metodu „values“ enum tipa.**
+**99. Opišite metodu `values()` enum tipa.**
 
 ```
 static EnumTypeName[] values()
 ```
 - vraća niz enum konstanti definiranih u enum tipu redoslijedom kako su definirane
 
-**100. Opišite metodu "`valueOf()`" enum tipa.**
+**100. Opišite metodu `valueOf()` enum tipa.**
 
 ```JAVA
 Static EnumTypeName valueOf(String name)
@@ -78,7 +82,7 @@ Static EnumTypeName valueOf(String name)
 - Vraća enum konstantu sa specificiranim nazivom. 
 - Ako ne postoji enum konstanta sa tim nazivom baca se `IllegalArgumentException` (prosljeđuje s samo naziv enum konstante)
 
-**101. Opišite metodu "`ordinal()`" enum tipa.**
+**101. Opišite metodu `ordinal()` enum tipa.**
 
 ```JAVA
 final int ordinal()
@@ -94,6 +98,8 @@ Kao i klase, mogu implementirati interface-e.
 - Enum klasa se ne može naslijediti niti može biti naslijeđena.
 
 * [ ] primjer, multiple inheritance
+
+### PACKAGE
 
 **103. Što je i što definira paket (package)?**
 
@@ -116,7 +122,7 @@ public class Circle extends Graphic implements Draggable
 
 Klasa `circle` je `public` član `graphics` paketa
 
-- Iskaz `package `mora se uključiti na vrhu svake izvorne datoteke koja definira klasu ili interface unutar `graphics` paketa
+- Iskaz `package`mora se uključiti na vrhu svake izvorne datoteke koja definira klasu ili interface unutar `graphics` paketa
 
 **105. Na koji način se mogu koristiti public članovi nekog paketa?**
 
@@ -137,13 +143,14 @@ import graphics.Circle;
 ```
 
 - Sada se klasa `Circle` može koristiti pomoću jednostavnog imena:
-`Circle myCircle = new Circle();`
+```JAVA
+Circle myCircle = new Circle();
+```
 
 - Uvoz cijelog paketa:
 ```JAVA
 import graphics.*;
 ```
-
 
 **107. Kako se mogu uvesti statički članovi klase?**
 
@@ -159,6 +166,8 @@ Java platforma oslanja se na hijerarhijski datotečni sistem radi upravljanja iz
 
 Osnovno ime izlazne datoteke je ime klase ili interface-a, a njezina ekstenzija je `.class`.
 Kao i `.java` datoteke, `.class` datoteka također treba biti u nizu direktorija koji odražavaju ime paketa. Međutim, ne mora biti u istom direktoriju u kojem je izvorna datoteka.
+
+### IZNIMKE
 
 **110. Koje su osnovne prednosti korištenja iznimki za obradu pogreški?**
 
@@ -186,14 +195,14 @@ void printStackTrace();
 ```JAVA
 String toString();
 ```
--vraća se kratki opis iznimke koji se najčešće sastoji od naziva klase i stringa kojeg vraća `getMessage()` metoda
+- vraća se kratki opis iznimke koji se najčešće sastoji od naziva klase i stringa kojeg vraća `getMessage()` metoda
 
 
 **113. Navedite glavnu podjelu iznimki? Navedite razlike.**
 
 `Throwable` klasa ima dva direktna nasljednika: Pogreške (**Errors**), iznimke (**Exceptions**). 
 
-- `Error` predstavlja "jaku" pogrešku i tipični java programi ne bi trebali hvatati Error-e. 
+- `Error` predstavlja "jaku" pogrešku i tipični java programi ne bi trebali hvatati error-e. 
 - `Exception` ima mnoge nasljednike, koje indiciraju različite tipove iznimki – predstavlja grupu iznimki koje se najčešće žele uhvatiti.
 
 **114. Koje iznimke spadaju u grupe provjeravanih i neprovjeravanih iznimki. Navedite razlike između te dvije grupe.**
@@ -285,7 +294,9 @@ if (<omogućeni asserti> && !<boolean izraz>)
     throw new AssertionError(<izraz poruke>);
 ```
 
-**122. Navedite podjelu „stream“ klasa ovisno o tipu podataka. Navedite glavne klase svake grupe.**
+### IO
+
+**122. Navedite podjelu "stream" klasa ovisno o tipu podataka. Navedite glavne klase svake grupe.**
 
 `Stream` klase podijeljene su u dvije hijerarhije klasa, ovisno o tipu podataka (karakteri ili bajtovi) nad kojima operiraju.
 
@@ -339,6 +350,8 @@ Glavne kategorije su tokovi karaktera i tokovi bajtova:
 - ObjectOutputStream, 
 - OutputStream*
 
+### THREADS
+
 **128. Što je to nit i što omogućava?**
 
 Nit predstavlja jedan sekvencijalni tok izvršavanja unutar programa. Omogućavaju pokretanje više niti (koji rade različite zadatke) unutar jednog programa
@@ -371,23 +384,22 @@ Nit završava kada je završeno izvođenje run metode bilo regularnim putem ili 
 
 **133. Koja je razlika između daemon i user niti? Koja je metoda za definiranje tipa niti.**
 
-**daemon** – ako u programu ostanu samo daemon niti, program izlazi.
-
-**user** – program čeka završetak svih user niti
+- **daemon** – ako u programu ostanu samo daemon niti, program izlazi.
+- **user** – program čeka završetak svih user niti
 
 **134. Navedite načine privremenog zaustavljanja niti.**
 
 Nit se privremeno zaustavlja:
 
-- Kada je pozvana sleep() metoda
-- Nit je pozvala wait() metodu kako bi pričekala da se nešto dogodi
+- Kada je pozvana `sleep()` metoda
+- Nit je pozvala `wait()` metodu kako bi pričekala da se nešto dogodi
 - Nit je blokirana na IO (input/output) funkciji
 
 
 **135. Navedite načine pokretanja privremeno zaustavljene niti.**
 
 - Ako nit upadne u stanje spavanja, mora proći određeni broj milisekundi
-- Ako nit čeka na uvjet, tada drugi objekt mora obavijestiti nit koja čeka da je nastupila promjena (pozivom notify ili notifyAll)
+- Ako nit čeka na uvjet, tada drugi objekt mora obavijestiti nit koja čeka da je nastupila promjena (pozivom `notify()` ili `notifyAll()`)
 - Ako je nit blokirana IO operacijom, tada ta operacija mora završiti.
 
 
@@ -395,16 +407,12 @@ Nit se privremeno zaustavlja:
 
 Metoda vraća stanje niti (enum).
 
-**NEW** (kreirana ali nije startana), 
-
-**RUNNABLE** (izvršava se u JVM), 
-
-**BLOCKED** (blokirana čekajući na lock), 
-
-**WAITING** ( čeka na neodređeno vrijeme da neki drugi thread obavi određenu operaciju), 
-**TIMED_WAITING** (čeka određeno vrijeme da neki drugi thread obavi određenu operaciju), 
-
-**TERMINATED** (završeno izvršavanje)
+- **NEW** (kreirana ali nije startana), 
+- **RUNNABLE** (izvršava se u JVM), 
+- **BLOCKED** (blokirana čekajući na lock), 
+- **WAITING** ( čeka na neodređeno vrijeme da neki drugi thread obavi određenu operaciju), 
+- **TIMED_WAITING** (čeka određeno vrijeme da neki drugi thread obavi određenu operaciju), 
+- **TERMINATED** (završeno izvršavanje)
 
 **137. Kako se određuje prioritet niti?**
 
@@ -448,8 +456,9 @@ sinkronizirane metode
 - Kod sinkroniziranih blokova može se ograditi proizvoljni dio koda i odrediti objekt čija se brava koristi za zaključavanje
 
 ```JAVA
-synchronized (<izraz koji daje referencu na objekt>)
-{ <blok koda> }
+synchronized (<izraz koji daje referencu na objekt>) { 
+    <blok koda> 
+}
 ```
 
 **142. Koje metode služe za sinkronizaciju različitih niti?**
