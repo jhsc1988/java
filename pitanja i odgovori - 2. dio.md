@@ -1,5 +1,5 @@
 
-Table of Contents
+Pitanja
 =================
 <!--ts-->
 * [INTERFACE](#interface)
@@ -77,7 +77,9 @@ Table of Contents
 	* [154. Navedite svojstva i primjere implementacije listi.](#154-navedite-svojstva-i-primjere-implementacije-listi)
 	* [155. Navedite svojstva i primjere implementacije mapa.](#155-navedite-svojstva-i-primjere-implementacije-mapa)
 <!--te-->
-Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
+Odgovori
+=================
 
 ### INTERFACE
 
