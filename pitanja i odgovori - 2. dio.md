@@ -1,6 +1,6 @@
 
 Table of Contents
-=================
+<!--ts-->
 
          * [INTERFACE](#interface)
             * [88. Što je to interface?](#88-\xC5\xA1to-je-to-interface)
@@ -78,7 +78,7 @@ Table of Contents
             * [155. Navedite svojstva i primjere implementacije mapa.](#155-navedite-svojstva-i-primjere-implementacije-mapa)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
-
+<!--te-->
 
 ### INTERFACE
 
