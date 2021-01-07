@@ -71,7 +71,8 @@ static EnumTypeName[] values()
 ```JAVA
 Static EnumTypeName valueOf(String name)
 ```
--	Vraća enum konstantu sa specificiranim nazivom. Ako ne postoji enum konstanta sa tim nazivom baca se `IllegalArgumentException` (prosljeđuje s samo naziv enum konstante)
+-	Vraća enum konstantu sa specificiranim nazivom. 
+- Ako ne postoji enum konstanta sa tim nazivom baca se `IllegalArgumentException` (prosljeđuje s samo naziv enum konstante)
 
 **101.	Opišite metodu „ordinal“ enum tipa.**
 
@@ -82,11 +83,15 @@ final int ordinal()
 
 **102.	Koliko klasa i koliko interface-a može enum tip naslijediti?**
 
-Kao i klase, mogu implementirati interface-e. Enum implicitno nasljeđuje samo klasu `java.lang.Enum` (nema višestrukog nasljeđivanja). Enum klasa se ne može naslijediti niti može biti naslijeđena.
+Kao i klase, mogu implementirati interface-e. 
+
+- Enum implicitno nasljeđuje samo klasu `java.lang.Enum` (nema višestrukog nasljeđivanja). 
+- Enum klasa se ne može naslijediti niti može biti naslijeđena.
 
 **103. Što je i što definira paket (package)?**
 
-Paket (package) je skup povezanih klasa i interface-a koji omogućuju zaštitu pristupa i upravljanje prostorom imena (namespace)
+Paket (`package`) je skup povezanih klasa i interface-a koji omogućuju zaštitu pristupa i upravljanje prostorom imena (`namespace`)
+
 -	Paketi grupiraju klase po njihovoj funkciji: osnovne klase su u paketu `java.lang`, klase za čitanje i pisanje (ulaz i izlaz) su u `java.io`
 
 **104.	Koji su elementi i pravila deklaracije paketa?**
@@ -101,13 +106,16 @@ public class Circle extends Graphic implements Draggable
 . . .
 }
 ```
+
 Klasa circle je public član graphics paketa
--	Iskaz `package `mora se uključiti na vrhu svake izvorne datoteke koja definira klasu ili interface unutar graphics paketa
+
+-	Iskaz `package `mora se uključiti na vrhu svake izvorne datoteke koja definira klasu ili interface unutar `graphics` paketa
 
 **105.	Na koji način se mogu koristiti public članovi nekog paketa?**
 
 Svi public članovi su dostupni i izvan paketa
 Za korištenje javnih package članova izvan paketa, mora se učiniti jedno od slijedećeg:
+
 -	Dohvatiti član uz pomoć njegovog dugog (kvalificiranog) imena
 -	Uvesti član paketa
 -	Uvesti cijeli paket
@@ -115,19 +123,23 @@ Za korištenje javnih package članova izvan paketa, mora se učiniti jedno od s
 
 **106.	Koji su elementi i pravila deklaracije uvoza članova nekog paketa?**
 
-Pomoću import iskaza na početku datoteke prije bilo koje definicije klase ili interface-a, ali nakon package iskaza.
+Pomoću import iskaza na početku datoteke prije bilo koje definicije klase ili interface-a, ali nakon `package` iskaza.
 
+```JAVA
 import graphics.Circle;
--	Sada se klasa Circle može koristiti pomoću jednostavnog imena:
-Circle myCircle = new Circle();
+```
+-	Sada se klasa `Circle` može koristiti pomoću jednostavnog imena:
+`Circle myCircle = new Circle();`
 
 -	Uvoz cijelog paketa:
+```JAVA
 import graphics.*;
+```
 
 
 **107.	Kako se mogu uvesti statički članovi klase?**
 
-Pomoću ključnih riječi static import
+Pomoću ključnih riječi `static import`
 -	Nakon uvoza takvi članovi se mogu koristiti sa jednostavnim imenom
 
 
@@ -367,37 +379,143 @@ Thread.sleep(long millis)
 Thread.sleep(long millis, int nanos)
 ```
 
+**139.	Navedite načine sinkronizacije dijela koda.**
 
-**139.	Navedite načine sinkronizacije dijela koda. **
+Deklariranjem: 
+
+- sinkroniziranih metoda – ako se metoda treba izvršavati u jednoj niti – metoda se deklarira ključnom riječi synchronized
+ - sinkroniziranih blokova koda – zaključava se brava objekta nad kojim se poziva metoda
+
 
 **140.	Opišite svojstva i način deklaracije sinkronizirane metode.**
 
+- Kod sinkroniziranih metoda zaključava se brava objekta nad kojim se poziva metoda
+
+- Ako se metoda objekta treba izvršavati u jednoj niti u jednom trenutku tada se takva metoda treba deklarirati sa ključnom riječi synchronized
+
+- Nit će otključati bravu samim time što će izići iz
+sinkronizirane metode
+
+
 **141.	Opišite svojstva i način deklaracije sinkroniziranih blokova.**
+
+-	Kod sinkroniziranih blokova može se ograditi proizvoljni dio koda i odrediti objekt čija se brava koristi za zaključavanje
+
+```JAVA
+synchronized (<izraz koji daje referencu na objekt>)
+{ <blok koda> }
+```
 
 **142.	Koje metode služe za sinkronizaciju različitih niti?**
 
+- Zaključavanjem objekta – thread koji pokuša pozvati sinkroniziranu metodu tog objekta bit će blokiran dok se objekt ne otključa
+
+- Jednostavnim koordiniranjem - obavještavanjem kada je thread spreman – metode: 
+
+`wait()`, 
+
+`notify()`, 
+
+`notifyAll()`
+
+
 **143.	Navedite osnovna svojstava wait metoda.**
+
+Zaustavlja izvršavanje nitii prebacuje nit u stanje čekanja na obavijest, ostale metode mogu zaključati isti objekt
 
 **144.	Kako se pokreće nit koja je zaustavljena pozivom wait metode?**
 
-**145.	Navedite osnovna svojstva notify i notifyAll metoda.**
+Ako neka druga nit pozove `notify()` metodu, ako istekne vrijeme čekanja ili neka druga nit prekine nit koja čeka (pozivom metode `interrupt()`)
+
+**145.	Navedite osnovna svojstva `notify()` i `notifyAll()` metoda.**
+
+- `notify()` – budi samo jednu nit
+- `notifyAll()` – budi sve niti koje su u stanju čekanja na obavijest 
+
+Koriste se samo za obavještavanje, one ne otključavaju bravu nad objektom.
+Nit otključava objekt tek kada izađe iz sinkronizirane metode/bloka.
+
 
 **146.	Kako se grupiraju niti?**
 
+Svaka nit je član grupe niti. Grupe omogućavaju mehanizam manipuliranja nitima odjednom. Ako grupa nije navedena, nova nit se stavlja u podrazumijevanu grupu (`main` grupa).
+
+Primjer konstruktora:
+
+```JAVA
+Thread(ThreadGroup group, Runnable target)
+…
+
+```
+
 **147.	Kako se postiže da nit čeka na završetak izvođenja neke druge niti?**
+
+Pozivanjem `join()` metode. Pozivajuća nit metode `join()` ide u wait i nalazi se u wait-u dok se referencirana nit ne završi.
 
 **148.	Koje uvjete mora zadovoljiti prepisana equals metoda?**
 
+-	Refleksivnost: za svaku referencu self `self.equals(self) = true`
+-	Simetričnost: za svaku referencu x, y vrijedi da je `x.equals(y) = true` ako i samo ako je `y.equals(x) = true`
+-	Tranzitivnost: za svaku referencu x, y, z vrijedi da ako je `x.equals(y) = true` i `y.equals(z) = true` onda vrijedi da je i `x.equals(z)=true`
+-	Konzistentnost: za bilo koju referencu x, y uzastopni pozivi `x.equals(y)` će uvijek dati isti rezultat ako se objekti na koje pokazuju reference nisu mijenjali
+-	Null usporedba: za svaku referencu obj koja nije null vrijedi `obj.equals(null)=false`
+
+
 **149.	Koje uvjete mora zadovoljiti prepisana hashCode metoda?**
+
+-	Konzistentnost: višestruko pozivanje metode moraju dati istu hash vrijednost ako se stanje objekta nije toliko promijenilo da se promijeni vrijednost koja se vraća equals metodom
+-	Ako su dva objekta jednaki po equals metodi tada trebaju dati istu hash vrijednost
+-	Ako dva objekta nisu jednaki po equals metodi tada nema ograničenja na njihove hash vrijednosti. Ne moraju imati različite hash vrijednosti ali je to preporučljivo
+-	Objekti sa istim hash vrijednostima ne moraju biti jednaki
+
 
 **150.	Koji interface-i služe za sortiranje objekata? Opišite metode pojedinih interface-a.**
 
+`Comparable<E>` interface - služi za prirodno sortiranje objekata
+-	`int compareTo(E o)` - vraća negativnu,0 , pozitivnu vrijednost ako je trenutni objekt manji, jednak ili veći od proslijeđenog objekta
+
+`Comparator<E>` interface – služi za sortiranje objekata
+-	`int compare(E o1, E o2)` – vraća negativnu (o1 manji), 0 (jednaki su), pozitivnu (o1 veći) vrijednost
+
+
 **151.	Kako se realizira sekvencijalni dohvat elemenata kolekcije? Opišite metode koje se koriste.**
+
+Realizira se iteratorom:
+
+`Iterator<E> iterator()`
+
+- `boolean hasNext()` – vraća true ako postoji slijedeći element koji se može dohvatiti
+- `E next()` – vraća slijedeći element kolekcije
+- `void remove()` – opcionalno, izbacuje element koji je zadnji vraćen iz kolekcije
+
 
 **152.	Koje su osnovne vrste kolekcija?**
 
+**Setovi**– ne dopuštaju duplikate u kolekciji
+**Liste** – čuvaju poredak elemenata i mogu sadržavati duplikate
+**Mape** – strukture koje sadrže parove „ključ-vrijednost“
+
+
 **153.	Navedite svojstva i primjere implementacije setova.**
+
+**Setovi** – ne dopuštaju duplikate u kolekciji
 
 **154.	Navedite svojstva i primjere implementacije listi.**
 
+**Liste** – čuvaju poredak elemenata i mogu sadržavati duplikate
+
+- Ponašanje definirano List interface-om
+- Svaki element ima svoju poziciju u kolekciji i indeks počinje od 0
+-	Pozicija elemenata se može mijenjati ako se dodaju i uklanjaju elementi iz kolekcije
+-	Osim metoda koje su definine u Collection interface-u, List interface definira i svoje metode za rad po listama (preko indeksa)
+
+
 **155.	Navedite svojstva i primjere implementacije mapa.**
+
+**Mape** – strukture koje sadrže parove "ključ-vrijednost"
+
+-	Ne može sadržavati duplikate ključeva
+-	Svaki ključ vodi samo do jedne vrijednosti
+-	I ključ i vrijednost moraju biti objekt
+-	Implementiraju interface `Map<K,V>`, koji sadrži metode za dodavanje novih elemenata, dohvaćanje postojećih, dohvaćanje Set-a ključeva, dohvaćanje vrijednosti itd.
+-	Map interface ne nasljeđuje `Collection`
