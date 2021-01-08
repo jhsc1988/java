@@ -137,14 +137,22 @@ Pomoću ključnih riječi `static import`
 
 #### 108. U kojem su odnosu public klasa i naziv i lokacija datoteke koja sadrži definiciju te klase?
 
-- /neki/paket/Klasa.java
+└── sources
+  └── neki
+    └── paket
+      └── Klasa.java
+    
 - neki.paket.Klasa.java
 
 direktoriji se prate hijerarhijski prema nazivu paketa 
 
 #### 109. Kako se definira lokacija kompajliranih klasa za interpreter (JVM)?
 
-- /neki/paket/Klasa.class
+└── classes
+  └── neki
+    └── paket
+      └── Klasa.java
+    
 - neki.paket.Klasa.class
 
 direktoriji se prate hijerarhijski prema nazivu paketa, `.class` i `.java` ne moraju biti u istom naddirektoriju
