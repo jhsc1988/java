@@ -26,7 +26,7 @@ public interface InterfaceName {
 
 #### 91. Koliko interface-a može pojedini interface naslijediti?
 
-Interface podržava višestruko nasljeđivanje; klasa može implementirati bilo koji broj interface-a, nadinterface je lista interface-a koje proširuju novi interface
+Interface podržava višestruko nasljeđivanje; klasa može implementirati bilo koji broj interface-a, novi interface može proširiti listom interface-a pomoću `extends`
 
 primjer implementacije u klasi:
 
