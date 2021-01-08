@@ -28,7 +28,7 @@ public interface InterfaceName {
 
 Interface podržava višestruko nasljeđivanje; klasa može implementirati bilo koji broj interface-a, novi interface može proširiti listom interface-a pomoću `extends`
 
-primjer implementacije u klasi:
+primjeri:
 
 ```java
 interface AnimalEat {
@@ -44,6 +44,18 @@ class Animal implements AnimalEat, AnimalTravel {
    public void travel() {
       System.out.println("Animal is travelling");
    }
+}
+```
+```java
+public interface A {
+      void a();
+}
+
+public interface B {
+      void b();
+}
+
+public interface AB extends A, B {
 }
 ```
 
