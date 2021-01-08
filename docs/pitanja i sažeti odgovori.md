@@ -5,7 +5,7 @@ Pitanja i sažeti odgovori
 
 #### 88. Što je to interface?
 
-Interface predstavlja imenovani skup metoda bez implementacije.
+Interface predstavlja imenovani skup metoda bez implementacije. Može definirati konstante.
 
 #### 89. Navedite razlike između interface-a i apstraktne klase?
 
