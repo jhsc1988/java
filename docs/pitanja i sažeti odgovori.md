@@ -171,9 +171,9 @@ Metoda mora ili hvatati (`catch`) ili navesti (`specify`) sve provjeravane iznim
 
 ovim redoslijedom:
 
-- try - unutar kojeg se može baciti exception
-- catch - hvata taj exception
-- finally - uvijek se izvrši nakon obrade
+- `try` - unutar kojeg se može baciti exception
+- `catch` - hvata taj exception
+- `finally` - uvijek se izvrši nakon obrade
 
 #### 117. Kako se postiže općeniti exception handler (hvata vište tipova iznimki)?
 
