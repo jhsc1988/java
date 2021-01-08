@@ -1,4 +1,4 @@
-Pitanja i odgovori - sažeti
+Pitanja i sažeti odgovori
 =================
 
 ### INTERFACE
@@ -66,23 +66,20 @@ Prilikom učitavanja enum tipa
 #### 99. Opišite metodu `values()` enum tipa.
 
 ```
-static EnumTypeName[] values()
+static EnumTypeName[] values(); // vraća niz enum konstanti redoslijedom kako su definirani
 ```
-- vraća niz enum konstanti definiranih u enum tipu redoslijedom kako su definirane
 
 #### 100. Opišite metodu `valueOf()` enum tipa.
 
 ```java
-Static EnumTypeName valueOf(String name)
+Static EnumTypeName valueOf(String name); // vraća enum konstantu sa specificiranim nazivom
 ```
-- Vraća enum konstantu sa specificiranim nazivom. 
 
 #### 101. Opišite metodu `ordinal()` enum tipa.
 
 ```java
-final int ordinal()
+final int ordinal(); // vraća redni broj enum konstante počevši od 0
 ```
-- Vraća redni broj enum konstante počevši od 0.
 
 #### 102. Koliko klasa i koliko interface-a može enum tip naslijediti?
 
@@ -108,12 +105,12 @@ package graphics;
 - Svi public članovi su dostupni i izvan paketa
 - dohvaćanje pomoću: 
   - njegovog dugog (kvalificiranog) imena
-  - Uvesti član paketa
-  - Uvesti cijeli paket
+  - uvozom člana paketa
+  - uvozom cijelog paketa
 
 #### 106. Koji su elementi i pravila deklaracije uvoza članova nekog paketa?
 
-Pomoću import iskaza na početku datoteke
+Pomoću `import` iskaza na početku datoteke
 
 ```java
 import graphics.Circle; // uvoz Circle člana
@@ -126,15 +123,17 @@ Pomoću ključnih riječi `static import`
 
 #### 108. U kojem su odnosu public klasa i naziv i lokacija datoteke koja sadrži definiciju te klase?
 
-/neki/paket/Klasa.java
-neki.paket.Klasa.java
+- /neki/paket/Klasa.java
+- neki.paket.Klasa.java
+
+direktoriji se prate hijerarhijski prema nazivu paketa 
 
 #### 109. Kako se definira lokacija kompajliranih klasa za interpreter (JVM)?
 
-/neki/paket/Klasa.class
-neki.paket.Klasa.class
+- /neki/paket/Klasa.class
+- neki.paket.Klasa.class
 
-.class i .java ne moraju biti u istom naddirektoriju
+direktoriji se prate hijerarhijski prema nazivu paketa, `.class` i `.java` ne moraju biti u istom naddirektoriju
 
 ### IZNIMKE
 
@@ -163,8 +162,8 @@ void printStackTrace(); // ispisuje se tok stog poziva
 
 #### 114. Koje iznimke spadaju u grupe provjeravanih i neprovjeravanih iznimki. Navedite razlike između te dvije grupe.
 
-neprovjeravane - `RuntimeException`, `Error` i podklase -> one koje se ne obrađuju
-provjeravane - sve ostale -> one koje se obrađuju
+- neprovjeravane - `RuntimeException`, `Error` i podklase -> one koje se ne obrađuju
+- provjeravane - sve ostale -> one koje se obrađuju
 
 #### 115. Navedite pravila rada sa provjeravanim iznimkama.
 
@@ -173,6 +172,7 @@ Metoda mora ili hvatati (`catch`) ili navesti (`specify`) sve provjeravane iznim
 #### 116. Navedite i opišite elemente hvatanja i obrade iznimki?
 
 ovim redoslijedom:
+
 - try - unutar kojeg se može baciti exception
 - catch - hvata taj exception
 - finally - uvijek se izvrši nakon obrade
@@ -207,7 +207,7 @@ someMethod(…)
 
 #### 120. Kako se definiraju novi tipovi provjeravanih i neprovjeravanih iznimki?
 
-Nasljeđivanjem Exception (provjeravanih) i RuntimeException (neprovjeravanih) klasa i podklasa
+Nasljeđivanjem `Exception` (provjeravanih) i `RuntimeException` (neprovjeravanih) klasa i podklasa
 
 #### 121. Navedite elemete iskaza „assert“.
 
