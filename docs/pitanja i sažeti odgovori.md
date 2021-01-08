@@ -104,7 +104,7 @@ final int ordinal(); // vraća redni broj enum konstante počevši od 0
 
 #### 103. Što je i što definira paket (package)?
 
-- Paket (`package`) je skup povezanih klasa
+- Paket (`package`) je skup povezanih klasa ili interface-a
 - unutar paketa definiraju se različiti tipovi i interface-i
 
 #### 104. Koji su elementi i pravila deklaracije paketa?
