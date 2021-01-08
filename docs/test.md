@@ -1,0 +1,1 @@
+kurac u oko
