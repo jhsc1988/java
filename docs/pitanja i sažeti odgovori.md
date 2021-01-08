@@ -26,7 +26,26 @@ public interface InterfaceName {
 
 #### 91. Koliko interface-a može pojedini interface naslijediti?
 
-Interface podržava višestruko nasljeđivanje
+Interface podržava višestruko nasljeđivanje.
+
+primjer:
+
+```java
+interface AnimalEat {
+   void eat();
+}
+interface AnimalTravel {
+   void travel();
+}
+class Animal implements AnimalEat, AnimalTravel {
+   public void eat() {
+      System.out.println("Animal is eating");
+   }
+   public void travel() {
+      System.out.println("Animal is travelling");
+   }
+}
+```
 
 #### 92. Koji su implicitni modifikatori uz metodu interface-a?
 
