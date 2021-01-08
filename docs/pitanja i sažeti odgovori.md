@@ -39,10 +39,8 @@ Interface podržava višestruko nasljeđivanje
 
 #### 94. Navedite elemente deklaracije enum tipa?
 
-ključna riječ enum; naziv; popis enum konstanti ili imenovanih konstanti 
-
-primjer:
 ```java
+// enum naziv { <popis enum konstanti> }
 enum E { E1, E2, E3 }
 ```
 
@@ -105,8 +103,8 @@ package graphics;
 - Svi public članovi su dostupni i izvan paketa
 - dohvaćanje pomoću: 
   - njegovog dugog (kvalificiranog) imena
-  - uvozom člana paketa
   - uvozom cijelog paketa
+  - uvozom člana paketa
 
 #### 106. Koji su elementi i pravila deklaracije uvoza članova nekog paketa?
 
