@@ -26,26 +26,10 @@ public interface InterfaceName {
 
 #### 91. Koliko interface-a može pojedini interface naslijediti?
 
-Interface podržava višestruko nasljeđivanje; klasa može implementirati bilo koji broj interface-a, novi interface može proširiti listom interface-a pomoću `extends`
+Interface podržava višestruko nasljeđivanje; novi interface može se proširiti listom interface-a pomoću `extends`
 
-primjeri:
+primjer:
 
-```java
-interface AnimalEat {
-   void eat();
-}
-interface AnimalTravel {
-   void travel();
-}
-class Animal implements AnimalEat, AnimalTravel {
-   public void eat() {
-      System.out.println("Animal is eating");
-   }
-   public void travel() {
-      System.out.println("Animal is travelling");
-   }
-}
-```
 ```java
 public interface A {
       void a();
