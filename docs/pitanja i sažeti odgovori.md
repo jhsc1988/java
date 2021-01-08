@@ -102,7 +102,7 @@ static EnumTypeName[] values(); // vraća niz enum konstanti redoslijedom kako s
 #### 100. Opišite metodu `valueOf()` enum tipa.
 
 ```java
-Static EnumTypeName valueOf(String name); // vraća enum konstantu sa specificiranim nazivom
+Static EnumTypeName valueOf("naziv"); // vraća enum konstantu sa specificiranim nazivom
 ```
 
 #### 101. Opišite metodu `ordinal()` enum tipa.
