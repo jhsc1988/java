@@ -1,5 +1,84 @@
-Pitanja i sažeti odgovori
+Pitanja i odgovori
 =================
+
+### KLASE II
+
+#### 76.	Koju klasu nasljeđuju sve klase (direktno ili indirektno)?
+
+Klasu `Object`
+
+#### 77.	Čemu služe `equals()` i `getHashCode()` metode?
+
+- Metoda `equals()` uspoređuje dva objekta i vraća true ako su jednaki.
+- Vrijednost koju vraća `getHashCode()` je cijeli broj koji mapira objekt u hash tablicu. 
+
+Ove metode se moraju prepisati zajedno.
+
+#### 78.	Koja metoda služi za konverziju objekta u string (npr. + operatorom i spajanjem sa String)?
+
+Metoda `toString()` – vraća String reprezentaciju objekta.
+
+#### 79.	Kojim članovima može pristupiti statički ugniježdena klasa?  Sa kojim modifikatorima pristupa su dostupni članovi statički ugniježdenoj klasi?
+
+- Statički ugniježđena klasa može pristupiti samo statičkim članovima u svojem okružujućem kontekstu. 
+- Imaju sve modifikatore pristupa (private, protected, public i bez modifikatora).
+
+#### 80.	Kojim članovima može pristupiti unutrašnja klasa?  Sa kojim modifikatorima pristupa su dostupni članovi unutrašnje klase?
+
+- Unutrašnja klasa je pridružena instanci klase u kojoj je definirana – ima direktan pristup varijablama i metodama te instance. 
+- Moguće je definirati sve modifikatore pristupa.
+
+#### 81.	Kako se kreira nova instanca unutrašnje klase?
+
+Unutrašnje klase se ne mogu kreirati bez da su pridružene nekoj instanci klase u kojem je definirana.
+
+```java
+<referenca klase>.new <poziv konstruktora ugnježđene klase>
+```
+
+Unutar klase u kojoj se nalazi ugniježdena klasa može se
+koristiti i običan poziv:
+
+```java
+new <poziv konstruktora ugnježđene klase> // što je ekvivalentno
+this.new <poziv konstruktora ugnježđene klase>
+```
+
+#### 82.	Kako se pristupa članovima okružujuće klase koji su skriveni u unutrašnjoj klasi?
+
+```java
+<Naziv klase>.this
+```
+
+#### 83.	Što su to lokalne klase?
+
+Klasa definirana unutar nekog bloka (Tijelo metode, tijelu konstruktora, lokalni blok, statički
+inicijalizacijski blok, inicijalizacijski blok instance)
+
+#### 84.	Koja su pravila pristupa lokalne klase članovima okružujuće klase? 
+
+- Ako se radi o ne statičkom bloku, gdje je dostupna `this` referenca onda se lokalna klasa ponaša kao i unutrašnja klasa po pitanju pristupa varijablama klase. Takva klasa je povezana sa instancom okružujuće klase.
+
+- Ako se radi o statičkom bloku onda se ponaša kao i statička ugniježdena klasa po pitanju pristupa varijablama
+
+- Kod lokalne klase ne može se koristiti static modifikator
+
+#### 85.	Kojim varijablama ima pristup lokalna klasa iz okružujućeg bloka?
+
+Ima pristup samo final parametrima i final lokalnim varijablama iz okružujuće metode
+
+#### 86.	Što su to anonimne klase? Navedite elemente iskaza za kreiranje anonimne klase?
+
+Anonimne klase objedinjuju definiciju i kreiranje objekta klase u jedan iskaz:
+
+```java
+new <naziv nadklase koja se nasljeđuje> (<opcionalna lista argumenata koji se prosljeđuje konstruktoru>)
+{ <definicija članova> }
+```
+
+#### 87.	Navedite pravila pristupa anonimne klase varijablama i metodama okružujućeg bloka/klase.
+
+Za anonimnu klasu vrijede ista pravila pristupa varijablama i metodama okružujuće metode/klase kao i za lokalnu klasu
 
 ### INTERFACE
 
@@ -127,8 +206,8 @@ package graphics;
 Pomoću `import` iskaza na početku datoteke
 
 ```java
-import graphics.Circle; // uvoz Circle člana
-import graphics.*; // uvoz svih članova
+import graphics.Circle; // uvoz Circle člana paketa graphics
+import graphics.*; // uvoz svih članova paketa graphics
 ```
 
 #### 107. Kako se mogu uvesti statički članovi klase?
@@ -137,17 +216,19 @@ Pomoću ključnih riječi `static import`
 
 #### 108. U kojem su odnosu public klasa i naziv i lokacija datoteke koja sadrži definiciju te klase?
 
-(sources) \ (neki)\ (paket) \ Klasa.java  
-    
-- neki.paket.Klasa.java
+```
+neki.paket.Klasa
+(sources) \ (neki) \ (paket) \ Klasa.java  
+```    
 
 direktoriji se prate hijerarhijski prema nazivu paketa 
 
 #### 109. Kako se definira lokacija kompajliranih klasa za interpreter (JVM)?
 
-(classes) \ (neki)\ (paket) \ Klasa.java 
-    
-- neki.paket.Klasa.class
+```
+neki.paket.Klasa
+(classes) \ (neki) \ (paket) \ Klasa.class  
+```
 
 direktoriji se prate hijerarhijski prema nazivu paketa, `.class` i `.java` ne moraju biti u istom naddirektoriju
 
@@ -167,14 +248,14 @@ Iznimka je događaj koji ometa prirodni tok izvršavanja programa
 
 ```java
 String getMessage(); // vraća poruku iznimke
-String toString(); // vraća se kratki opis iznimke
-void printStackTrace(); // ispisuje se tok stog poziva
+String toString(); // vraća se obično kratki opis iznimke
+void printStackTrace(); // ispisuje se tok stog poziva (call stack)
 ```
 
 #### 113. Navedite glavnu podjelu iznimki? Navedite razlike.
 
-- `Error` - predstavlja "jaku" pogrešku
-- `Exception` ima mnoge nasljednike - predstavlja grupu iznimki 
+- `Error` - predstavlja "jaku" pogrešku, obično se ne obrađuje
+- `Exception` ima mnoge nasljednike - predstavlja grupu iznimki, obrađuje se
 
 #### 114. Koje iznimke spadaju u grupe provjeravanih i neprovjeravanih iznimki. Navedite razlike između te dvije grupe.
 
@@ -189,9 +270,9 @@ Metoda mora ili hvatati (`catch`) ili navesti (`specify`) sve provjeravane iznim
 
 ovim redoslijedom:
 
-- `try` - unutar kojeg se može baciti exception
-- `catch` - hvata taj exception
-- `finally` - uvijek se izvrši nakon obrade
+- `try` - blok unutar kojeg se može baciti exception
+- `catch` - blok koji hvata taj exception i obrađuje ga
+- `finally` - uvijek se izvršava nakon try-catch bloka (neovisno je li bačen exception)
 
 #### 117. Kako se postiže općeniti exception handler (hvata vište tipova iznimki)?
 
