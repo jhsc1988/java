@@ -10,7 +10,8 @@ Interface predstavlja imenovani skup metoda bez implementacije.
 #### 89. Navedite razlike između interface-a i apstraktne klase?
 
 - Interface ne može implementirati niti jednu metodu, dok apstraktna klasa može 
-- Klase ne podržavaju višestruko nasljeđivanje, interface podržava 
+- Klasa može implementirati mnogo interface-a, ali smije imati samo jednu nadklasu
+- Interface nije dio hijerarhije klasa. Klase koje nisu u odnosu mogu implementirati isti interface
 
 #### 90. Navedite elemente deklaracije interface-a?
 
