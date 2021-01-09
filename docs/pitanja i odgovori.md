@@ -52,7 +52,7 @@ this.new <poziv konstruktora ugnježđene klase>
 
 #### 83.	Što su to lokalne klase?
 
-Klasa definirana unutar nekog bloka (Tijelo metode, tijelu konstruktora, lokalni blok, statički
+Klasa definirana unutar nekog bloka (tijelo metode, tijelu konstruktora, lokalni blok, statički
 inicijalizacijski blok, inicijalizacijski blok instance)
 
 #### 84.	Koja su pravila pristupa lokalne klase članovima okružujuće klase? 
