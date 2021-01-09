@@ -67,6 +67,8 @@ inicijalizacijski blok, inicijalizacijski blok instance)
 
 Ima pristup samo final parametrima i final lokalnim varijablama iz okružujuće metode
 
+[primjer](primjer%20-%20lokalne%20klase.md)
+
 #### 86.	Što su to anonimne klase? Navedite elemente iskaza za kreiranje anonimne klase?
 
 Anonimne klase objedinjuju definiciju i kreiranje objekta klase u jedan iskaz:
