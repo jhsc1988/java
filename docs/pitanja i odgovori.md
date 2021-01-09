@@ -3,7 +3,7 @@ Pitanja i odgovori
 
 ### KLASE II
 
-#### 76.	Koju klasu nasljeđuju sve klase (direktno ili indirektno)?
+#### 76.	Koju klasu naslijeđuju sve klase (direktno ili indirektno)?
 
 Klasu `Object`
 
@@ -47,7 +47,7 @@ this.new <poziv konstruktora ugnježđene klase>
 #### 82.	Kako se pristupa članovima okružujuće klase koji su skriveni u unutrašnjoj klasi?
 
 ```java
-<Naziv klase>.this
+<naziv klase>.this
 ```
 
 #### 83.	Što su to lokalne klase?
@@ -74,13 +74,14 @@ Ima pristup samo final parametrima i final lokalnim varijablama iz okružujuće 
 Anonimne klase objedinjuju definiciju i kreiranje objekta klase u jedan iskaz:
 
 ```java
-new <naziv nadklase koja se nasljeđuje> (<opcionalna lista argumenata koji se prosljeđuje konstruktoru>)
+new <naziv nadklase koja se naslijeđuje> (<opcionalna lista argumenata koji se prosljeđuje konstruktoru>)
 { <definicija članova> }
 ```
 
 #### 87.	Navedite pravila pristupa anonimne klase varijablama i metodama okružujućeg bloka/klase.
 
-Za anonimnu klasu vrijede ista pravila pristupa varijablama i metodama okružujuće metode/klase kao i za lokalnu klasu
+- Za anonimnu klasu vrijede ista pravila pristupa varijablama i metodama okružujuće metode/klase kao i za lokalnu klasu
+- dakle, ima pristup samo final varijablama i ne može se koristiti static modifikator
 
 ### INTERFACE
 
@@ -107,7 +108,7 @@ public interface InterfaceName {
 
 #### 91. Koliko interface-a može pojedini interface naslijediti?
 
-Interface podržava višestruko nasljeđivanje; novi interface može se proširiti listom interface-a pomoću `extends`
+Interface podržava višestruko naslijeđivanje; novi interface može se proširiti listom interface-a pomoću `extends`
 
 primjer:
 
@@ -156,7 +157,7 @@ Prilikom učitavanja enum tipa
 #### 98. Navedite razlike između enum tipa i klase?
 
 - nije moguće kreirati nove enum instance
-- enum ne može biti nasljeđena
+- enum ne može biti naslijeđena
 
 #### 99. Opišite metodu `values()` enum tipa.
 
@@ -178,7 +179,7 @@ final int ordinal(); // vraća redni broj enum konstante počevši od 0
 
 #### 102. Koliko klasa i koliko interface-a može enum tip naslijediti?
 
-- Enum implicitno nasljeđuje samo klasu `java.lang.Enum`
+- Enum implicitno naslijeđuje klasu `java.lang.Enum` i ne može biti naslijeđena
 - Enum klasa može implementirati više interface-a
 
 ### PACKAGE
@@ -205,7 +206,7 @@ package graphics;
 
 #### 106. Koji su elementi i pravila deklaracije uvoza članova nekog paketa?
 
-Pomoću `import` iskaza na početku datoteke
+Pomoću `import` iskaza na početku datoteke kako bi članu kasnije pristupali pomoću jednostavnog imena
 
 ```java
 import graphics.Circle; // uvoz Circle člana paketa graphics
@@ -306,7 +307,7 @@ someMethod(…)
 
 #### 120. Kako se definiraju novi tipovi provjeravanih i neprovjeravanih iznimki?
 
-Nasljeđivanjem `Exception` (provjeravanih) i `RuntimeException` (neprovjeravanih) klasa i podklasa
+Naslijeđivanjem `Exception` (provjeravanih) i `RuntimeException` (neprovjeravanih) klasa i podklasa
 
 #### 121. Navedite elemete iskaza „assert“.
 
