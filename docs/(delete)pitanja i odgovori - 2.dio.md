@@ -399,7 +399,7 @@ Nit se privremeno zaustavlja:
 - Ako nit čeka na uvjet, tada drugi objekt mora obavijestiti nit koja čeka da je nastupila promjena (pozivom `notify()` ili `notifyAll()`)
 - Ako je nit blokirana IO operacijom, tada ta operacija mora završiti.
 
-#### 136. Navedite i opišite osnovna stanja niti (getState).
+#### 136. Navedite i opišite osnovna stanja niti (`getState()`).
 
 Metoda vraća stanje niti (enum).
 
