@@ -229,7 +229,6 @@ direktoriji se prate hijerarhijski prema nazivu paketa
 #### 109. Kako se definira lokacija kompajliranih klasa za interpreter (JVM)?
 
 ```
-neki.paket.Klasa
 (classes) \ (neki) \ (paket) \ Klasa.class  
 ```
 
@@ -315,3 +314,117 @@ Naslijeđivanjem `Exception` (provjeravanih) i `RuntimeException` (neprovjeravan
 assert <boolean izraz> ; // Jednostavni oblik
 assert <boolean izraz > : <izraz poruke>;
 ```
+ekvivalentno:
+
+```java
+if (<omogućeni asserti> && !<boolean izraz>)
+    // Jednostavni oblik
+    throw new AssertionError();
+
+if (<omogućeni asserti> && !<boolean izraz>)
+    throw new AssertionError(<izraz poruke>);
+```
+
+### IO
+
+#### 122. Navedite podjelu "stream" klasa ovisno o tipu podataka. Navedite glavne klase svake grupe.
+
+`Stream` klase podijeljene su u dvije hijerarhije klasa, ovisno o tipu podataka (karakteri ili bajtovi) nad kojima operiraju.
+
+- Tokovi karaktera: `Reader` i `Writer` (16-bit karakteri)
+- Tokovi bajtova: `InputStream` i `OutputStream` (8-bit bajtovi)
+
+#### 123. Navedite kategorije stream klasa.
+
+Glavne kategorije su tokovi karaktera i tokovi bajtova:
+
+- **Reader**: čitanje karaktera
+- **Writer**: pisanje karaktera
+- **InputStream**: čitanje bajtova
+- **OutputStream**: pisanje bajtova
+
+#### 124. Navedite osnovne metode Reader klase.
+
+- BufferedReader, 
+- CharArrayReader, 
+- InputStreamReader, 
+- FilterReader, 
+- PipedReader, 
+- StringReader
+
+#### 125. Navedite osnovne metode InputStream klase.
+
+- FileInputStream, 
+- PipedInputStream, 
+- FilterInputStream, 
+- ByteArrayInputStream, 
+- SequenceInputStream, 
+- StringBufferInputStream, 
+- ObjectInputStream
+
+#### 126. Navedite osnovne metode Writer klase.
+
+- BufferedWriter, 
+- CharArrayWriter, 
+- OutputStreamWriter, 
+- FilterWriter, 
+- PipedWriter, 
+- StringWriter, 
+- PrintWriter
+
+#### 127. Navedite osnovne metode OutputStream klase.
+
+- FileOutputStream, 
+- PipedOutputStream, 
+- FilterOutputStream, 
+- ByteArrayOutputStream, 
+- ObjectOutputStream, 
+- OutputStream*
+
+### THREADS
+
+#### 128. Što je to nit i što omogućava?
+
+Nit predstavlja jedan sekvencijalni tok izvršavanja unutar programa. Omogućavaju pokretanje više niti (koji rade različite zadatke) unutar jednog programa
+
+#### 129. Kako se postiže implementacija niti?
+
+Postiže se:
+
+- implementacijom java.lang.Runnable interface-a
+- nasljeđivanjem java.lang.Thread klase
+
+#### 130. Kada završava nit?
+
+Nit završava kada je završeno izvođenje run metode bilo regularnim putem ili iznimkom
+
+#### 131. Koji su koraci i način pokretanja niti kod nasljeđivanja Thread klase?
+
+- Klasa koja nasljeđuje Thread klasu prepisuje run metodu
+- podklasa može eksplicitno zvati konstruktor nadklase u svom konstruktoru da inicijalizira nit pomoću `super()` poziva
+- pokreće se naslijeđena metoda `start()` iz Thread klase na objektu da se proglasi nit spremnim za pokretanje
+
+#### 132. Koji su koraci i načini pokretanja niti kod implementacije Runnable interface-a?
+
+- Klasa implementira `Runnable` interface i definira run metodu koja će se pokrenuti od strane niti. Objekt te klase je `Runnable` objekt
+- Kreira se objekt klase Thread putem konstruktora kojem se kao argument proslijeđuje `Runnable` objekt
+- Pokreće se `start()` metoda nad Thread objektom. Metoda `start()` zaršava čim je kreirana nova nit
+
+#### 133. Koja je razlika između daemon i user niti? Koja je metoda za definiranje tipa niti.
+
+- **daemon** – ako u programu ostanu samo daemon niti, program izlazi.
+- **user** – program čeka završetak svih user niti
+
+#### 134. Navedite načine privremenog zaustavljanja niti.
+
+Nit se privremeno zaustavlja:
+
+- Kada je pozvana `sleep()` metoda
+- Nit je pozvala `wait()` metodu kako bi pričekala da se nešto dogodi
+- Nit je blokirana na IO (input/output) funkciji
+
+#### 135. Navedite načine pokretanja privremeno zaustavljene niti.
+
+- Ako nit upadne u stanje spavanja, mora proći određeni broj milisekundi
+- Ako nit čeka na uvjet, tada drugi objekt mora obavijestiti nit koja čeka da je nastupila promjena (pozivom `notify()` ili `notifyAll()`)
+- Ako je nit blokirana IO operacijom, tada ta operacija mora završiti.

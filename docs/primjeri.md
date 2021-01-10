@@ -50,5 +50,62 @@ class TLCWithLocalClasses { // najgornja klasa
 }
 ```
 
+#### pokretanje niti naslijeđivanjem Thread klase
+
+```java
+class Counter extends Thread {
+    private int currentValue;
+    public Counter(String threadName) {
+        super(threadName); // (1) inicijalizacija niti
+        currentValue = 0;
+        System.out.println(this);
+        // setDaemon(true);
+        start(); // (2) pokretanje niti
+    }
+    public int getValue() {
+        return currentValue;
+    }
+    public void run() { // (3) prepisuje se iz nadklase.
+        try {
+            while (currentValue < 5) {
+                System.out.println(getName() + ": " + (currentValue++));
+                Thread.sleep(250); // (4) threnutna nit spava.
+            }
+        } catch (InterruptedException e) {
+            System.out.println(getName() + " interrupted.");
+        }
+        System.out.println("Exit from thread: " + getName());
+    }
+}
+
+class Client {
+    public static void main(String[] args) {
+        System.out.println("Method main() runs in thread "
+                + Thread.currentThread().getName()); // (5) trenutna nit
+        Counter counterA = new Counter("Counter A"); // (6) kreiranje niti
+        Counter counterB = new Counter("Counter B"); // (7) kreiranje niti
+        System.out.println("Exit from main() method.");
+    }
+}
+
+/*
+    Method main() runs in thread main
+Thread[Counter A,5,main]
+        Thread[Counter B,5,main]
+        Counter A: 0
+        Exit from main() method.
+        Counter B: 0
+        Counter A: 1
+        Counter B: 1
+        Counter A: 2
+        Counter B: 2
+        Counter B: 3
+        Counter A: 3
+        Counter A: 4
+        Counter B: 4
+        Exit from thread: Counter A
+        Exit from thread: Counter B
+ */
+```
 
 

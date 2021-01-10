@@ -305,17 +305,13 @@ if (<omogućeni asserti> && !<boolean izraz>)
 
 `Stream` klase podijeljene su u dvije hijerarhije klasa, ovisno o tipu podataka (karakteri ili bajtovi) nad kojima operiraju.
 
-- Tokovi karaktera: `Reader` i `Writer` (16-bit karakteri)
-- Tokovi bajtova: `InputStream` i `OutputStream` (8-bit bajtovi)
+- Tokovi karaktera: `Reader` i `Writer` (čitanje i pisanje streamova 16-bitnih karaktera)
+- Tokovi bajtova: `InputStream` i `OutputStream` (čitanje i pisanje streamova 8-bitnih bajtova)
 
 #### 123. Navedite kategorije stream klasa.
 
-Glavne kategorije su tokovi karaktera i tokovi bajtova:
-
-- **Reader**: čitanje karaktera
-- **Writer**: pisanje karaktera
-- **InputStream**: čitanje bajtova
-- **OutputStream**: pisanje bajtova
+- klase koje čitaju/pišu u izvore/ponore podataka
+- klase koje izvršavaju neku vrstu procesiranja
 
 #### 124. Navedite osnovne metode Reader klase.
 
@@ -368,7 +364,6 @@ Postiže se:
 - implementacijom java.lang.Runnable interface-a
 - nasljeđivanjem java.lang.Thread klase
 
-
 #### 130. Kada završava nit?
 
 Nit završava kada je završeno izvođenje run metode bilo regularnim putem ili iznimkom
@@ -381,11 +376,9 @@ Nit završava kada je završeno izvođenje run metode bilo regularnim putem ili 
 
 #### 132. Koji su koraci i načini pokretanja niti kod implementacije Runnable interface-a?
 
-
 - Klasa implementira `Runnable` interface i definira run metodu koja će se pokrenuti od strane niti. Objekt te klase je `Runnable` objekt
 - Kreira se objekt klase Thread putem konstruktora kojem se kao argument proslijeđuje `Runnable` objekt
 - Pokreće se `start()` metoda nad Thread objektom. Metoda `start()` zaršava čim je kreirana nova nit
-
 
 #### 133. Koja je razlika između daemon i user niti? Koja je metoda za definiranje tipa niti.
 
@@ -400,13 +393,11 @@ Nit se privremeno zaustavlja:
 - Nit je pozvala `wait()` metodu kako bi pričekala da se nešto dogodi
 - Nit je blokirana na IO (input/output) funkciji
 
-
 #### 135. Navedite načine pokretanja privremeno zaustavljene niti.
 
 - Ako nit upadne u stanje spavanja, mora proći određeni broj milisekundi
 - Ako nit čeka na uvjet, tada drugi objekt mora obavijestiti nit koja čeka da je nastupila promjena (pozivom `notify()` ili `notifyAll()`)
 - Ako je nit blokirana IO operacijom, tada ta operacija mora završiti.
-
 
 #### 136. Navedite i opišite osnovna stanja niti (getState).
 
@@ -430,7 +421,6 @@ Statičkom `yield()` metodom klase `Thread` – trenutna nit prepušta CPU ako p
 ```java
 Thread.yield();
 ```
-
 Statičkom metodom sleep klase `Thread` – zaustavlja trenutnu nit 
 
 ```java
@@ -445,7 +435,6 @@ Deklariranjem:
 - sinkroniziranih metoda – ako se metoda treba izvršavati u jednoj niti – metoda se deklarira ključnom riječi synchronized
  - sinkroniziranih blokova koda – zaključava se brava objekta nad kojim se poziva metoda
 
-
 #### 140. Opišite svojstva i način deklaracije sinkronizirane metode.
 
 - Kod sinkroniziranih metoda zaključava se brava objekta nad kojim se poziva metoda
@@ -454,7 +443,6 @@ Deklariranjem:
 
 - Nit će otključati bravu samim time što će izići iz
 sinkronizirane metode
-
 
 #### 141. Opišite svojstva i način deklaracije sinkroniziranih blokova.
 
@@ -478,7 +466,6 @@ synchronized (<izraz koji daje referencu na objekt>) {
 
 `notifyAll()`
 
-
 #### 143. Navedite osnovna svojstava wait metoda.
 
 Zaustavlja izvršavanje niti i prebacuje nit u stanje čekanja na obavijest, ostale metode mogu zaključati isti objekt
@@ -494,7 +481,6 @@ Ako neka druga nit pozove `notify()` metodu, ako istekne vrijeme čekanja ili ne
 
 Koriste se samo za obavještavanje, one ne otključavaju bravu nad objektom.
 Nit otključava objekt tek kada izađe iz sinkronizirane metode/bloka.
-
 
 #### 146. Kako se grupiraju niti?
 
@@ -522,14 +508,12 @@ TODO: primjer
 - Konzistentnost: za bilo koju referencu x, y uzastopni pozivi `x.equals(y)` će uvijek dati isti rezultat ako se objekti na koje pokazuju reference nisu mijenjali
 - Null usporedba: za svaku referencu obj koja nije null vrijedi `obj.equals(null)=false`
 
-
 #### 149. Koje uvjete mora zadovoljiti prepisana hashCode metoda?
 
 - Konzistentnost: višestruko pozivanje metode moraju dati istu hash vrijednost ako se stanje objekta nije toliko promijenilo da se promijeni vrijednost koja se vraća equals metodom
 - Ako su dva objekta jednaki po equals metodi tada trebaju dati istu hash vrijednost
 - Ako dva objekta nisu jednaki po equals metodi tada nema ograničenja na njihove hash vrijednosti. Ne moraju imati različite hash vrijednosti ali je to preporučljivo
 - Objekti sa istim hash vrijednostima ne moraju biti jednaki
-
 
 #### 150. Koji interface-i služe za sortiranje objekata? Opišite metode pojedinih interface-a.
 
@@ -538,7 +522,6 @@ TODO: primjer
 
 `Comparator<E>` interface – služi za sortiranje objekata
 - `int compare(E o1, E o2)` – vraća negativnu (o1 manji), 0 (jednaki su), pozitivnu (o1 veći) vrijednost
-
 
 #### 151. Kako se realizira sekvencijalni dohvat elemenata kolekcije? Opišite metode koje se koriste.
 
@@ -550,7 +533,6 @@ Realizira se iteratorom:
 - `E next()` – vraća slijedeći element kolekcije
 - `void remove()` – opcionalno, izbacuje element koji je zadnji vraćen iz kolekcije
 
-
 #### 152. Koje su osnovne vrste kolekcija?
 
 **Setovi**– ne dopuštaju duplikate u kolekciji
@@ -558,7 +540,6 @@ Realizira se iteratorom:
 **Liste** – čuvaju poredak elemenata i mogu sadržavati duplikate
 
 **Mape** – strukture koje sadrže parove „ključ-vrijednost“
-
 
 #### 153. Navedite svojstva i primjere implementacije setova.
 
@@ -574,7 +555,6 @@ TODO: završiti ovo
 - Svaki element ima svoju poziciju u kolekciji i indeks počinje od 0
 - Pozicija elemenata se može mijenjati ako se dodaju i uklanjaju elementi iz kolekcije
 - Osim metoda koje su definine u Collection interface-u, List interface definira i svoje metode za rad po listama (preko indeksa)
-
 
 #### 155. Navedite svojstva i primjere implementacije mapa.
 
