@@ -413,6 +413,8 @@ start(); // pokretanje niti
 - Klasa implementira `Runnable` interface i definira run metodu koja će se pokrenuti od strane niti. Objekt te klase je `Runnable` objekt
 - Kreira se objekt klase Thread putem konstruktora kojem se kao argument proslijeđuje `Runnable` objekt
 - Pokreće se `start()` metoda nad Thread objektom. Metoda `start()` zaršava čim je kreirana nova nit
+
+[primjer](primjeri.md#pokretanje-niti-implementrianjem-runnable-interface-a)
 ---
 ### 133. Koja je razlika između daemon i user niti? Koja je metoda za definiranje tipa niti.
 
@@ -432,8 +434,6 @@ Nit se privremeno zaustavlja:
 - Ako nit upadne u stanje spavanja, mora proći određeni broj milisekundi
 - Ako nit čeka na uvjet, tada drugi objekt mora obavijestiti nit koja čeka da je nastupila promjena (pozivom `notify()` ili `notifyAll()`)
 - Ako je nit blokirana IO operacijom, tada ta operacija mora završiti.
-
-
 ---
 ### 136. Navedite i opišite osnovna stanja niti (`getState()`).
 
@@ -533,6 +533,7 @@ Thread(ThreadGroup group, String name)
 
 Pozivanjem `join()` metode. Pozivajuća nit metode `join()` ide u wait i nalazi se u wait-u dok se referencirana nit ne završi.
 
+[primjer] (primjeri.md#primjer-kori%C5%A1tenja-join-metode)
 ---
 ### 148. Koje uvjete mora zadovoljiti prepisana `equals();` metoda?
 
@@ -579,8 +580,8 @@ Realizira se iteratorom:
 
 **Setovi** 
 
-- implementacije Set interface-a ne dopuštaju duplikate u kolekciji
-- Set interface ne donosi niti jednu novu metodu u odnosu na Collection
+- implementacije `Set` interface-a ne dopuštaju duplikate u kolekciji
+- Set interface ne donosi niti jednu novu metodu u odnosu na `Collection`
 
 ```java
 Set<String> hash_Set = new HashSet<String>(); 
@@ -598,7 +599,7 @@ a.addAll(Arrays.asList(new Integer[] {1, 3, 2, 4, 8, 9, 0}));
 - Ponašanje definirano List interface-om
 - Svaki element ima svoju poziciju u kolekciji i indeks počinje od 0
 - Pozicija elemenata se može mijenjati ako se dodaju i uklanjaju elementi iz kolekcije
-- Osim metoda koje su definine u Collection interface-u, List interface definira i svoje metode za rad po listama (preko indeksa)
+- Osim metoda koje su definine u `Collection` interface-u, `List` interface definira i svoje metode za rad po listama (preko indeksa)
 
 ```java
 List<Integer> l1 = new ArrayList<Integer>(); 
