@@ -406,6 +406,7 @@ public void run() { ... } // prepisivanje run metode
 super("threadName"); // inicijaliziranje niti pozivom konstruktora
 start(); // pokretanje niti
 ```
+[primjer](primjeri.md#pokretanje-niti-naslije%C4%91ivanjem-thread-klase)
 ---
 ### 132. Koji su koraci i načini pokretanja niti kod implementacije Runnable interface-a?
 
@@ -491,11 +492,13 @@ synchronized (<izraz koji daje referencu na objekt>) {
 ---
 ### 142. Koje metode služe za sinkronizaciju različitih niti?
 
-`wait();`, 
+koordiniranje se provodi metodama:
 
-`notify();`, 
+`wait();` - metoda čeka da se nešto dogodi, 
 
-`notifyAll();`
+`notify();` - metoda budi samo jednu nit, 
+
+`notifyAll();` - metoda budi sve niti koje su u stanju čekanja na obavijest
 ---
 ### 143. Navedite osnovna svojstava wait metoda.
 
@@ -517,12 +520,13 @@ Nit otključava objekt tek kada izađe iz sinkronizirane metode/bloka.
 
 Svaka nit je član grupe niti. Grupe omogućavaju mehanizam manipuliranja nitima odjednom. Ako grupa nije navedena, nova nit se stavlja u podrazumijevanu grupu (`main` grupa).
 
-Primjer konstruktora:
+konstruktori u kojima se može odrediti grupa:
 
 ```java
 Thread(ThreadGroup group, Runnable target)
-…
-
+Thread(ThreadGroup group, Runnable target, String name)
+Thread(ThreadGroup group, Runnable target, String name, long stackSize)
+Thread(ThreadGroup group, String name)
 ```
 ---
 ### 147. Kako se postiže da nit čeka na završetak izvođenja neke druge niti?
@@ -530,7 +534,7 @@ Thread(ThreadGroup group, Runnable target)
 Pozivanjem `join()` metode. Pozivajuća nit metode `join()` ide u wait i nalazi se u wait-u dok se referencirana nit ne završi.
 
 ---
-### 148. Koje uvjete mora zadovoljiti prepisana equals metoda?
+### 148. Koje uvjete mora zadovoljiti prepisana `equals();` metoda?
 
 - Refleksivnost: za svaku referencu self `self.equals(self) = true`
 - Simetričnost: za svaku referencu x, y vrijedi da je `x.equals(y) = true` ako i samo ako je `y.equals(x) = true`
@@ -538,7 +542,7 @@ Pozivanjem `join()` metode. Pozivajuća nit metode `join()` ide u wait i nalazi 
 - Konzistentnost: za bilo koju referencu x, y uzastopni pozivi `x.equals(y)` će uvijek dati isti rezultat ako se objekti na koje pokazuju reference nisu mijenjali
 - Null usporedba: za svaku referencu obj koja nije null vrijedi `obj.equals(null)=false`
 ---
-### 149. Koje uvjete mora zadovoljiti prepisana hashCode metoda?
+### 149. Koje uvjete mora zadovoljiti prepisana `hashCode();` metoda?
 
 - Konzistentnost: višestruko pozivanje metode moraju dati istu hash vrijednost ako se stanje objekta nije toliko promijenilo da se promijeni vrijednost koja se vraća equals metodom
 - Ako su dva objekta jednaki po equals metodi tada trebaju dati istu hash vrijednost
@@ -573,25 +577,49 @@ Realizira se iteratorom:
 ---
 ### 153. Navedite svojstva i primjere implementacije setova.
 
-**Setovi** – ne dopuštaju duplikate u kolekciji
+**Setovi** 
 
-TODO: završiti ovo
----
+- implementacije Set interface-a ne dopuštaju duplikate u kolekciji
+- Set interface ne donosi niti jednu novu metodu u odnosu na Collection
+
+```java
+Set<String> hash_Set = new HashSet<String>(); 
+hash_Set.add("alpha"); 
+hash_Set.add("beta"); 
+```	
+
+```java
+Set<Integer> a = new HashSet<Integer>();  
+a.addAll(Arrays.asList(new Integer[] {1, 3, 2, 4, 8, 9, 0}));  
+```	---
 ### 154. Navedite svojstva i primjere implementacije listi.
 
-**Liste** – čuvaju poredak elemenata i mogu sadržavati duplikate
-
+- čuvaju poredak elemenata i mogu sadržavati duplikate
 - Ponašanje definirano List interface-om
 - Svaki element ima svoju poziciju u kolekciji i indeks počinje od 0
 - Pozicija elemenata se može mijenjati ako se dodaju i uklanjaju elementi iz kolekcije
 - Osim metoda koje su definine u Collection interface-u, List interface definira i svoje metode za rad po listama (preko indeksa)
----
+
+```java
+List<Integer> l1 = new ArrayList<Integer>(); 
+  
+// dodaje 1 na indeks 0 
+l1.add(0, 1); 
+  
+// dodaje 2 na indeks 1
+l1.add(1, 2); 
+```			---
 ### 155. Navedite svojstva i primjere implementacije mapa.
 
-**Mape** – strukture koje sadrže parove "ključ-vrijednost"
-
+- strukture koje sadrže parove "ključ-vrijednost"
 - Ne može sadržavati duplikate ključeva
 - Svaki ključ vodi samo do jedne vrijednosti
 - I ključ i vrijednost moraju biti objekt
 - Implementiraju interface `Map<K,V>`, koji sadrži metode za dodavanje novih elemenata, dohvaćanje postojećih, dohvaćanje Set-a ključeva, dohvaćanje vrijednosti itd.
 - Map interface ne nasljeđuje `Collection`
+
+```java
+Map<String, Integer> hm = new HashMap<String, Integer>(); 
+hm.put("a", new Integer(100));
+hm.put("b", new Integer(200)); 
+```

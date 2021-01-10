@@ -57,7 +57,7 @@ class TLCWithLocalClasses { // najgornja klasa
 ```
 
 ---
-#### pokretanje niti naslijeđivanjem Thread klase
+#### pokretanje niti naslijeđivanjem `Thread` klase
 
 ```java
 class Counter extends Thread {
@@ -96,8 +96,9 @@ class Client {
 }
 
 /*
-    Method main() runs in thread main
-Thread[Counter A,5,main]
+Output:
+        Method main() runs in thread main
+        Thread[Counter A,5,main]
         Thread[Counter B,5,main]
         Counter A: 0
         Exit from main() method.
@@ -116,7 +117,61 @@ Thread[Counter A,5,main]
 ```
 
 ---
-#### primjer korištenja join(); metode
+#### pokretanje niti implementrianjem `Runnable` interface-a
+
+```java
+
+class Counter implements Runnable {
+    private int currentValue;
+
+    public Counter() {
+        currentValue = 0;
+    }
+
+    public int getValue() {
+        return currentValue;
+    }
+
+    public void run() { // (1) Ulazna točka niti
+        try {
+            while (currentValue < 5) { // (2) ispisuje se naziv niti
+                System.out.println(Thread.currentThread().getName() + ": "
+                        + (currentValue++));
+                Thread.sleep(250); // (3) Trenutna nit je zaustavljena
+            }
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread().getName()
+                    + " interrupted.");
+        }
+        System.out.println("Exit from thread: "
+                + Thread.currentThread().getName());
+    }
+}
+
+class Client {
+    public static void main(String[] args) {
+        Counter counterA = new Counter(); // (4) kreira se Counter objekt.
+        Thread worker = new Thread(counterA, "Counter A");//(5) kreira se nova nit
+        System.out.println(worker);
+        worker.start(); // (6) pokreće se nit.
+        try {
+            int val;
+            do {
+                val = counterA.getValue(); // (7) dohvat vrijednosti brojača.
+                System.out.println("Counter value read by " // (8) ispis naziva trenutne niti
+                        + Thread.currentThread().getName() + ": " + val);
+                Thread.sleep(1000); // (9) Trenutna nit je zaustavljena
+            } while (val < 5);
+        } catch (InterruptedException e) {
+            System.out.println("The main thread is interrupted.");
+        }
+        System.out.println("Exit from main() method.");
+    }
+}
+```
+
+---
+#### primjer korištenja `join();` metode
 
 ```java
 class TestJoinMethod1 extends Thread {
