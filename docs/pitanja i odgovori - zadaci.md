@@ -3,7 +3,7 @@ interface Runnable?
 
 ```java
 public interface Runnable {
-public abstract void run();
+	public abstract void run();
 }
 ```
 1. `Runnable r = new Runnable() { };`
@@ -102,8 +102,8 @@ class ColorTest {
 }
 ```
 
-1.RED i BLUE
-2."Red Color" "Blue Color" 
+1. RED i BLUE
+2. "Red Color" "Blue Color" 
 3. Greška kod prevođenja
 4. redColor i blueColor
 
@@ -329,8 +329,6 @@ duplikati
 #### Koji će elementi biti u kolekciji?
 
 ```java
-package enums;
-
 class Element {
     int i;
 
