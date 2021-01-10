@@ -52,7 +52,7 @@ this.new <poziv konstruktora ugnježđene klase>
 ---
 ### 83.	Što su to lokalne klase?
 
-Klasa definirana unutar nekog bloka (tijelo metode, tijelu konstruktora, lokalni blok, statički
+Klasa definirana unutar nekog bloka (tijelu metode, tijelu konstruktora, lokalni blok, statički
 inicijalizacijski blok, inicijalizacijski blok instance)
 ---
 ### 84.	Koja su pravila pristupa lokalne klase članovima okružujuće klase? 
@@ -102,7 +102,7 @@ Pomoću ključne riječi interface i naziva
 primjer:
 ```java
 public interface InterfaceName {
-    InterfaceBody
+    <InterfaceBody>
 }
 ```
 ---
@@ -179,7 +179,7 @@ final int ordinal(); // vraća redni broj enum konstante počevši od 0
 ---
 ### 102. Koliko klasa i koliko interface-a može enum tip naslijediti?
 
-- Enum implicitno naslijeđuje klasu `java.lang.Enum` i ne može biti naslijeđena
+- Enum implicitno naslijeđuje klasu `java.lang.Enum` i ne može biti naslijeđena (Enum klasa je implicitno final)
 - Enum klasa može implementirati više interface-a
 
 ### PACKAGE
@@ -274,7 +274,7 @@ ovim redoslijedom:
 
 - `try` - blok unutar kojeg se može baciti exception
 - `catch` - blok koji hvata taj exception i obrađuje ga
-- `finally` - uvijek se izvršava nakon try-catch bloka (neovisno je li bačen exception)
+- `finally` - blok koji se uvijek izvršava nakon try-catch bloka (neovisno je li bačen exception)
 ---
 ### 117. Kako se postiže općeniti exception handler (hvata vište tipova iznimki)?
 
@@ -533,7 +533,7 @@ Thread(ThreadGroup group, String name)
 
 Pozivanjem `join()` metode. Pozivajuća nit metode `join()` ide u wait i nalazi se u wait-u dok se referencirana nit ne završi.
 
-[primjer] (primjeri.md#primjer-kori%C5%A1tenja-join-metode)
+[primjer](primjeri.md#primjer-kori%C5%A1tenja-join-metode)
 ---
 ### 148. Koje uvjete mora zadovoljiti prepisana `equals();` metoda?
 
