@@ -16,7 +16,7 @@ run() { }};`
 
 ---
 
-Točan odgovor 4):
+> Točan odgovor 4):
 Kod 1 nije implementirana metoda run, 2 i 3
 greška u sintaksi
 
@@ -59,7 +59,7 @@ public class Foo {
 
 ---
 
-Točan odgovor 3):
+> Točan odgovor 3):
 Najprije se kreira Foo instanca i u konstruktoru
 se ispisuje "foo". Nakon toga se poziva
 makeBar metoda koja kreira Bar instancu a u
@@ -109,7 +109,7 @@ class ColorTest {
 
 ---
 
-Točan odgovor 2):
+> Točan odgovor 2):
 Enumi su klase pa mogu imati i varijable i
 konstruktore. Kod deklaracije emum konstanti
 definira se i parametar za konstruktor.
@@ -156,7 +156,7 @@ public class TestEnum2 {
 
 ---
 
-Točan odgovor 3):
+> Točan odgovor 3):
 Enum se može koristiti u switch iskazu. Ordinal
 metoda vraća redni broj enum konstante u listi
 konstanti; za BLUE to je 2
@@ -192,7 +192,7 @@ public class X {
 
 ---
 
-Točan odgovor 3):
+> Točan odgovor 3):
 Error nije provjeravana iznimka pa metoda ne
 mora definirati tu iznimku u throws dijelu. U
 try-catch bloku hvata se samo Exception
@@ -217,7 +217,7 @@ for(int i=2;i< 4;i++)
 
 ---
 
-Točan odgovor 2):
+> Točan odgovor 2):
 Assert poruka se ispisuje kada je assert
 vrijednost false
 
@@ -244,7 +244,7 @@ t.start();`
 
 ---
 
-Točan odgovor 3):
+> Točan odgovor 3):
 Nit se kreira putem Thread objekta kojem se u
 ovom slučaju treba proslijediti referencu na
 objekt koji implementira intarface Runnable.
@@ -261,7 +261,7 @@ Nit se pokreće pozivom metode start
 
 ---
 
-Točan odgovor 1)
+> Točan odgovor 1)
 
 ---
 
@@ -304,7 +304,7 @@ class s1 implements Runnable {
 
 ---
 
-Točan odgovor 3)
+> Točan odgovor 3)
 Nakon pokretanja više niti ne može se odrediti
 kojim se redoslijedom izvršavaju (ako nisu
 sinkronizirane)
@@ -320,7 +320,7 @@ sinkronizirane)
 
 ---
 
-Točan odgovor 3):
+> Točan odgovor 3):
 U Set kolekcije se ne mogu pridruživati
 duplikati
 
@@ -368,7 +368,7 @@ public class TestCol {
 
 ---
 
-Točan odgovor 4):
+> Točan odgovor 4):
 Set ne dopušta duplikate ali se provjera da li
 je nešto duplikat radi putem metode equals.
 Kod hash tablica (HashSet i LinkedHashSet)
@@ -396,6 +396,44 @@ hash kod.
 Točan odgovor 3)
 
 ---
+
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+public class MyProgram {
+    public static void main(String[] args) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream("test.txt");
+            out.write(122);
+        } catch (IOException io) {
+            System.out.println("IO Error.");
+        } finally {
+            out.close();
+        }
+    }
+}
+```
+
+1. Program se uspješno prevodi
+2. Greška u prevođenju u liniji 4
+3. Greška u prevođenju u liniji 6
+4. Greška u prevođenju u liniji 13
+
+---
+
+> Točan odgovor 4):
+IOException je provjeravana iznimka pa se svaka
+metoda koja može baciti takvu iznimku mora
+nalaziti u try-catch bloku koji obrađuje tu
+iznimku ili sama metoda (ovdje main) mora
+definirati da može baciti IOException.
+out.close() se ne nalazi unutar odgovarajućeg
+try-catch bloka
+
+
+
+
 
 #### Što će se ispisati?
 
@@ -426,7 +464,7 @@ public class Test {
 
 ---
 
-Točan odgovor 1):
+> Točan odgovor 1):
 Instanca unutrašnje klase ne može postojati a da
 nije povezana sa instancom vanjske klase i
 zbog toga ima pristup članovima instance
@@ -470,7 +508,7 @@ public class TestThreads {
 
 ---
 
-Točan odgovor 2):
+> Točan odgovor 2):
 Pokretanjem niti se poziva run metoda. Nit se
 pokreće putem objekta Thread klase. U ovom
 slučaju imamo MyThread klasu koja naslijeđuje

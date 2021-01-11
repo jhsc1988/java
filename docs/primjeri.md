@@ -47,13 +47,68 @@ class TLCWithLocalClasses { // najgornja klasa
             final double f6 = nsf1; // (6) nasljeđeno iz nadklase
             final double f6a = this.nsf1; // (6a) nasljeđeno iz nadklase
             final double f6b = super.nsf1; // (6b) nasljeđeno iz nadklase
-            final double f7 = TLCWithLocalClasses.this.nsf1;// (7) varijabla iz instance klase koja okružuje ovu klasu
+            final double f7 = TLCWithLocalClasses.this.nsf1;// (7) varijabla iz instance klase koja 
+			// okružuje ovu klasu
             final int f8 = nsf2; // (8) iz instance klase koja okružuje ovu klasu.
             final int f9 = sf; // (9) static član klase koja okružuje ovu klasu.
             int hlv; // (10) skriva lokalnu varijablu metode. (nema načina pristupa skrivenoj varijabli)
         }
     }
 }
+```
+
+#### Primjer enum s konstruktorom
+
+```java
+public enum Meal {
+    BREAKFAST(7, 30), LUNCH(12, 15), DINNER(19, 45); // (1)
+
+    // varijable: (3)
+    private final int hh;
+    private final int mm;
+    // konstruktor(2)
+    Meal(int hh, int mm) {
+        this.hh = hh;
+        this.mm = mm;
+    }
+
+    // metode instance: (4)
+    public int getHour() {
+        return this.hh;
+    }
+
+    public int getMins() {
+        return this.mm;
+    }
+}
+
+public class MealAdministrator {
+    public static void main(String[] args) {
+        System.out.printf( // (5)
+                "Please note that no eggs will be served at %s, %02d:%02d.%n",
+                Meal.BREAKFAST, Meal.BREAKFAST.getHour(), Meal.BREAKFAST.getMins()
+        );
+        System.out.println("Meal times are as follows:");
+        Meal[] meals = Meal.values(); // (6)
+        for (Meal meal : meals) // (7)
+            System.out.printf("%s served at %02d:%02d%n",
+                    meal, meal.getHour(), meal.getMins()
+            );
+        Meal formalDinner = Meal.valueOf("DINNER"); // (8)
+        System.out.printf("Formal dress is required for %s at %02d:%02d.%n",
+                formalDinner, formalDinner.getHour(), formalDinner.getMins()
+        );
+    }
+}
+/*
+Output:
+        Please note that no eggs will be served at BREAKFAST, 07:30.
+        Meal times are as follows:
+        BREAKFAST served at 07:30
+        LUNCH served at 12:15
+        DINNER served at 19:45
+        Formal dress is required for DINNER at 19:45.
+ */
 ```
 
 ---

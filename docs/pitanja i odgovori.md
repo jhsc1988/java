@@ -77,6 +77,14 @@ Anonimne klase objedinjuju definiciju i kreiranje objekta klase u jedan iskaz:
 new <naziv nadklase koja se naslijeđuje> (<opcionalna lista argumenata koji se prosljeđuje konstruktoru>)
 { <definicija članova> }
 ```
+
+Anonimne klase:
+
+- nemaju ime
+- mogu biti instancirane samo jednom
+- dostupne su samo sa mjesta gdje su definirane
+- nemaju konstruktor (jer nemaju naziv)
+- ne mogu biti statičke
 ---
 ### 87.	Navedite pravila pristupa anonimne klase varijablama i metodama okružujućeg bloka/klase.
 
@@ -324,7 +332,8 @@ if (<omogućeni asserti> && !<boolean izraz>)
 if (<omogućeni asserti> && !<boolean izraz>)
     throw new AssertionError(<izraz poruke>);
 ```
-
+ - Assert poruka se ispisuje kada je assert
+vrijednost false
 ### IO
 ---
 ### 122. Navedite podjelu "stream" klasa ovisno o tipu podataka. Navedite glavne klase svake grupe.
@@ -413,6 +422,18 @@ start(); // pokretanje niti
 - Klasa implementira `Runnable` interface i definira run metodu koja će se pokrenuti od strane niti. Objekt te klase je `Runnable` objekt
 - Kreira se objekt klase Thread putem konstruktora kojem se kao argument proslijeđuje `Runnable` objekt
 - Pokreće se `start()` metoda nad Thread objektom. Metoda `start()` zaršava čim je kreirana nova nit
+
+```java
+class X implements Runnable {
+    public static void main(String[] args) {
+        X run = new X(); 
+        Thread t = new Thread(run);
+        t.start();
+    }
+    public void run() {
+    }
+}
+```
 
 [primjer](primjeri.md#pokretanje-niti-implementrianjem-runnable-interface-a)
 ---
