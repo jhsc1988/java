@@ -18,8 +18,11 @@ class Foo {
 ```
 
 A. `System.out.println(this.a);`
+
 B. `System.out.println(super.a);`
+
 C. `System.out.println(Foo.this.a); `
+
 D. `System.out.println(a);`
 
 > C. `System.out.println(Foo.this.a); `
@@ -57,8 +60,11 @@ public class O {
 ```
 
 A. 34 45 
+
 B. 34 0
+
 C. 0 45 
+
 D. Greška kod prevođenja
 
 > C. 0 45 
@@ -85,8 +91,11 @@ public class Local {
 ```
 
 A. 1 
+
 B. 2
+
 B. 3 
+
 D. 4
 
 > D. 4 
@@ -103,8 +112,11 @@ interface Test{
 ```
 
 A. 1 
+
 B. 2
+
 C. 3 
+
 D. 4
 
 > A. 1 
@@ -117,9 +129,12 @@ enum EnumTest {
 }
 ```
 
-A. 0 
+A. 0
+ 
 B. 1
+
 C. 2 
+
 D. neograničeno (mogu se kreirati nove po potrebi)
 
 > C. 2 
@@ -144,8 +159,11 @@ public class EnumCreation {
 ```
 
 A. sai0s08 
+
 B. sai0s08 1
+
 C. Greška kod prevođenja 
+
 D. 1
 
 > B. sai0s08 1
@@ -178,8 +196,11 @@ public class Test
 }
 ```
 A. Greška kod prevođenja 
+
 B. uhvaćen Exception
+
 C. uhvaćen Ex0 
+
 D. Ništa, program završava sa greškom
 
 > B. uhvaćen Exception
@@ -199,8 +220,11 @@ public class ExceptionTest
 ```
 
 A. Ništa 
+
 B. catch ( Exception e )
+
 C. throws Exception 
+
 D. throws RuntimeException
 
 > A. Ništa
@@ -221,8 +245,11 @@ public class X {
 ```
 
 A. AssertionError: 6 
+
 B. AssertionError: 0
+
 C. Sve je provjereno 4
+
 D. Greška kod prevođenja
 
 > B. AssertionError: 0
@@ -262,8 +289,11 @@ class A extends Thread
 ```
 
 A. Brojeve od 0 19 ali nije moguće odrediti redoslijed
+
 B. Brojeve od 1 20 sekvencijalno
+
 C. Brojeve od 1 20 ali nije moguće odrediti redoslijed
+
 D. Greška kod prevođenja
 
 > B. Brojeve od 1 20 sekvencijalno
@@ -306,8 +336,11 @@ class A extends Thread {
 ```
 
 A. a1 
+
 B. a2
+
 C. a3 
+
 D. a4
 
 > C. a3
@@ -332,8 +365,11 @@ class A extends Thread {
 ```
 
 A. svi brojevi 0-20 pa „main gotov“
+
 B. „main gotov“ pa svi brojevi 0-20
+
 C. „main gotov“ i samo neki brojevi redoslijednom od 0 (maksimalno do 20)
+
 D. Greška kod prevođenja
 
 > C. „main gotov“ i samo neki brojevi redoslijednom od 0 (maksimalno do 20)
@@ -341,8 +377,11 @@ D. Greška kod prevođenja
 #### 13. Koji interface predstavlja strukturu podataka u koju se mogu pridruživati duplikati?
 
 A. java.util.Map
+
 B. java.util.List
+
 C. java.util.Set 
+
 D. java.util.Collection
 
 > B. java.util.List
@@ -350,8 +389,11 @@ D. java.util.Collection
 #### 14. Što vraća read() metoda InputStream -a?
 
 A. string 
+
 B. byte kao int vrijednost
+
 C. char kao int vrijednost 
+
 D. char[]
 
 > C. char kao int vrijednost 
@@ -359,6 +401,9 @@ D. char[]
 #### 15. Koja tvrdnja nije točna za hashCode metodu?
 
 A. višestruko pozivanje metode moraju dati istu hash vrijednost ako se stanje objekta nije promijenilo
+
 B. Ako dva objekta nisu jednaki po equals metodi tada moraju dati različite hash vrijednosti
+
 C. vraća int vrijednost
+
 D. Ako su dva objekta jednaki po equals metodi tada trebaju dati istu hash vrijednost
