@@ -340,7 +340,7 @@ D. Greška kod prevođenja
 
 #### 13. Koji interface predstavlja strukturu podataka u koju se mogu pridruživati duplikati?
 
-A. java.util.Map 
+A. java.util.Map
 B. java.util.List
 C. java.util.Set 
 D. java.util.Collection
