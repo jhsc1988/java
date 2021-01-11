@@ -17,12 +17,12 @@ class Foo {
 }
 ```
 
-A) `System.out.println(this.a);`
-B) `System.out.println(super.a);`
-C) `System.out.println(Foo.this.a); `
-D) `System.out.println(a);`
+A. `System.out.println(this.a);`
+B. `System.out.println(super.a);`
+C. `System.out.println(Foo.this.a); `
+D. `System.out.println(a);`
 
-> C) `System.out.println(Foo.this.a); `
+> C. `System.out.println(Foo.this.a); `
 
 #### 2. Što će se ispisati?
 
@@ -56,12 +56,12 @@ public class O {
 }
 ```
 
-A) 34 45 
-B) 34 0
-C) 0 45 
-D) Greška kod prevođenja
+A. 34 45 
+B. 34 0
+C. 0 45 
+D. Greška kod prevođenja
 
-> C) 0 45 
+> C. 0 45 
 
 #### 3. Koja linija neće rezultirati sa greškom kod prevođenja?
 
@@ -84,12 +84,12 @@ public class Local {
 }
 ```
 
-A) 1 
-B) 2
-B) 3 
-D) 4
+A. 1 
+B. 2
+B. 3 
+D. 4
 
-> D) 4 
+> D. 4 
 
 #### 4. Koja je valjana deklaracija metode interface-a?
 
@@ -102,12 +102,12 @@ interface Test{
 }
 ```
 
-A) 1 
-B) 2
-C) 3 
-D) 4
+A. 1 
+B. 2
+C. 3 
+D. 4
 
-> A) 1 
+> A. 1 
 
 #### 5. Koliko instanci enum tipa EnumTest postoje?
 
@@ -117,12 +117,12 @@ enum EnumTest {
 }
 ```
 
-A) 0 
-B) 1
-C) 2 
-D) neograničeno (mogu se kreirati nove po potrebi)
+A. 0 
+B. 1
+C. 2 
+D. neograničeno (mogu se kreirati nove po potrebi)
 
-> C) 2 
+> C. 2 
 
 #### 6. Što će se ispisati?
 
@@ -143,12 +143,12 @@ public class EnumCreation {
 }
 ```
 
-A) sai0s08 
-B) sai0s08 1
-C) Greška kod prevođenja 
-D) 1
+A. sai0s08 
+B. sai0s08 1
+C. Greška kod prevođenja 
+D. 1
 
-> B) sai0s08 1
+> B. sai0s08 1
 
 #### 7. Što će se ispisati?
 
@@ -177,12 +177,12 @@ public class Test
     }
 }
 ```
-A) Greška kod prevođenja 
-B) uhvaćen Exception
-C) uhvaćen Ex0 
-D) Ništa, program završava sa greškom
+A. Greška kod prevođenja 
+B. uhvaćen Exception
+C. uhvaćen Ex0 
+D. Ništa, program završava sa greškom
 
-> B) uhvaćen Exception
+> B. uhvaćen Exception
 
 #### 8. Koji iskaz treba staviti na umjesto /* Kod X */ da se kod može uspješno prevesti?
 
@@ -198,12 +198,12 @@ public class ExceptionTest
 }
 ```
 
-A) Ništa 
-B) catch ( Exception e )
-C) throws Exception 
-D) throws RuntimeException
+A. Ništa 
+B. catch ( Exception e )
+C. throws Exception 
+D. throws RuntimeException
 
-> A) Ništa
+> A. Ništa
 
 #### 9. Što će se ispisati ako su uključene tvrdnje „assert“?
 
@@ -220,12 +220,12 @@ public class X {
 }
 ```
 
-A) AssertionError: 6 
-B) AssertionError: 0
-C) Sve je provjereno 4
-D) Greška kod prevođenja
+A. AssertionError: 6 
+B. AssertionError: 0
+C. Sve je provjereno 4
+D. Greška kod prevođenja
 
-> B) AssertionError: 0
+> B. AssertionError: 0
 
 #### 10. Što će se ispisati?
 
@@ -261,12 +261,12 @@ class A extends Thread
 }
 ```
 
-A) Brojeve od 0 19 ali nije moguće odrediti redoslijed
-B) Brojeve od 1 20 sekvencijalno
-C) Brojeve od 1 20 ali nije moguće odrediti redoslijed
-D) Greška kod prevođenja
+A. Brojeve od 0 19 ali nije moguće odrediti redoslijed
+B. Brojeve od 1 20 sekvencijalno
+C. Brojeve od 1 20 ali nije moguće odrediti redoslijed
+D. Greška kod prevođenja
 
-> B) Brojeve od 1 20 sekvencijalno
+> B. Brojeve od 1 20 sekvencijalno
 
 #### 11. Ako su sve niti zaustavljene pozivom wait metode koja će se nit „probuditi“ pozivom metode notifyAll u liniji 16?
 
@@ -305,12 +305,12 @@ class A extends Thread {
 }
 ```
 
-A) a1 
-B) a2
-C) a3 
-D) a4
+A. a1 
+B. a2
+C. a3 
+D. a4
 
-> C) a3
+> C. a3
 
 ##### 12. Što će se ispisati?
 
@@ -331,34 +331,34 @@ class A extends Thread {
 }
 ```
 
-A) svi brojevi 0-20 pa „main gotov“
-B) „main gotov“ pa svi brojevi 0-20
-C) „main gotov“ i samo neki brojevi redoslijednom od 0 (maksimalno do 20)
-D) Greška kod prevođenja
+A. svi brojevi 0-20 pa „main gotov“
+B. „main gotov“ pa svi brojevi 0-20
+C. „main gotov“ i samo neki brojevi redoslijednom od 0 (maksimalno do 20)
+D. Greška kod prevođenja
 
-> C) „main gotov“ i samo neki brojevi redoslijednom od 0 (maksimalno do 20)
+> C. „main gotov“ i samo neki brojevi redoslijednom od 0 (maksimalno do 20)
 
 #### 13. Koji interface predstavlja strukturu podataka u koju se mogu pridruživati duplikati?
 
-A) java.util.Map 
-B) java.util.List
-C) java.util.Set 
-D) java.util.Collection
+A. java.util.Map 
+B. java.util.List
+C. java.util.Set 
+D. java.util.Collection
 
-> B) java.util.List
+> B. java.util.List
 
 #### 14. Što vraća read() metoda InputStream -a?
 
-A) string 
-B) byte kao int vrijednost
-C) char kao int vrijednost 
-D) char[]
+A. string 
+B. byte kao int vrijednost
+C. char kao int vrijednost 
+D. char[]
 
-> C) char kao int vrijednost 
+> C. char kao int vrijednost 
 
 #### 15. Koja tvrdnja nije točna za hashCode metodu?
 
-A) višestruko pozivanje metode moraju dati istu hash vrijednost ako se stanje objekta nije promijenilo
-B) Ako dva objekta nisu jednaki po equals metodi tada moraju dati različite hash vrijednosti
-C) vraća int vrijednost
-D) Ako su dva objekta jednaki po equals metodi tada trebaju dati istu hash vrijednost
+A. višestruko pozivanje metode moraju dati istu hash vrijednost ako se stanje objekta nije promijenilo
+B. Ako dva objekta nisu jednaki po equals metodi tada moraju dati različite hash vrijednosti
+C. vraća int vrijednost
+D. Ako su dva objekta jednaki po equals metodi tada trebaju dati istu hash vrijednost
