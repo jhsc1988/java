@@ -83,6 +83,27 @@ class Painter { // (3) najgornja klasa
     }
 }
 ```
+#### Primjer enum
+
+```java
+enum MachineState { BUSY, IDLE, BLOCKED }
+
+public class Machine {
+    private MachineState state;
+    public void setState(MachineState state) { this.state = state; }
+    public MachineState getState() { return this.state; }
+}
+....
+        Machine machine = new Machine();
+        machine.setState(MachineState.IDLE); // (1)prosijeđuje se vrijednsot.
+        // machine.setState(1); // (2) Greško kod prevođenja!
+        MachineState state = machine.getState(); // (3)Deklariranje
+        //referencijalnog tipa (enum)
+        System.out.println(
+        "The machine state is: " + state // (4) Ispis naziv enum vrijednosti.
+        // MachineState newState = new MachineState();//(5) greška kod prev.
+        );
+```
 
 #### Primjer enum s konstruktorom
 
