@@ -59,6 +59,31 @@ class TLCWithLocalClasses { // najgornja klasa
 }
 ```
 
+#### Primjer anonimne klase
+
+```java
+interface IDrawable { // (1)
+    void draw();
+}
+class Shape implements IDrawable { // (2)
+    public void draw(){System.out.println("Drawing a Shape."); }
+}
+class Painter { // (3) najgornja klasa
+    public Shape createShape() { // (4) ne-static Metoda
+        return new Shape(){ // (5) naslijeđuje nadklasu (2)
+            public void draw(){System.out.println("Drawing a new Shape.");}
+        };
+    }
+    public static IDrawable createIDrawable() { // (7) Static Metoda
+        return new IDrawable(){ // (8) implementira sučelje (1)
+            public void draw() {
+                System.out.println("Drawing a new IDrawable.");
+            }
+        };
+    }
+}
+```
+
 #### Primjer enum s konstruktorom
 
 ```java
