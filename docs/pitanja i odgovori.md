@@ -591,6 +591,14 @@ Iterator se dohvaća putem slijedeće metode Collection interface-a:
 - `boolean hasNext()` – vraća true ako postoji slijedeći element koji se može dohvatiti
 - `E next()` – vraća slijedeći element kolekcije
 - `void remove()` – opcionalno, izbacuje element koji je zadnji vraćen iz kolekcije
+
+- Ako kolekcija implementira Iterable interface onda se kroz takvu kolekciju može kretati putem for(:) petlje:
+
+```java
+interface Iterable<E> {
+	Iterator<E> iterator();
+}
+```
 ---
 ### 152. Koje su osnovne vrste kolekcija?
 
