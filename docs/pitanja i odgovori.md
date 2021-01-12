@@ -65,10 +65,11 @@ inicijalizacijski blok, inicijalizacijski blok instance)
 ---
 ### 85.	Kojim varijablama ima pristup lokalna klasa iz okružujućeg bloka?
 
-Ima pristup samo final parametrima i final lokalnim varijablama iz okružujuće metode
+Ima pristup samo final parametrima i final lokalnim varijablama iz okružujuće metode.
 
-[primjer](primjer%20-%20lokalne%20klase.md)
----
+[primjer](primjeri.md#primjer-lokalnih-klasa)
+
+---
 ### 86.	Što su to anonimne klase? Navedite elemente iskaza za kreiranje anonimne klase?
 
 Anonimne klase objedinjuju definiciju i kreiranje objekta klase u jedan iskaz:
@@ -85,11 +86,12 @@ Anonimne klase:
 - dostupne su samo sa mjesta gdje su definirane
 - nemaju konstruktor (jer nemaju naziv)
 - ne mogu biti statičke
+
+[primjer](primjeri.md#primjer-anonimne-klase)
 ---
 ### 87.	Navedite pravila pristupa anonimne klase varijablama i metodama okružujućeg bloka/klase.
 
 - Za anonimnu klasu vrijede ista pravila pristupa varijablama i metodama okružujuće metode/klase kao i za lokalnu klasu
-- dakle, ima pristup samo final varijablama i ne može se koristiti static modifikator
 
 ### INTERFACE
 ---
@@ -113,6 +115,9 @@ public interface InterfaceName {
     <InterfaceBody>
 }
 ```
+
+- nije moguće koristiti transient, volatile ili synchronized u deklaraciji člana interface-a
+- također, nije moguće koristiti ni private i protected modifikatore
 ---
 ### 91. Koliko interface-a može pojedini interface naslijediti?
 
@@ -149,10 +154,15 @@ public interface AB extends A, B {
 // enum naziv { <popis enum konstanti> }
 enum E { E1, E2, E3 }
 ```
----
+
+[primjer](primjeri.md#primjer-enum)
+
+[primjer](primjeri.md#primjer-enum-s-konstruktorom)
+
+---
 ### 95. Koliko instanci enum tipa se može kreirati za vrijeme izvođenja programa?
 
-Ne mogu se kreirati nove instance tipa enum operatorom `new`
+Ne mogu se kreirati nove instance tipa enum.
 ---
 ### 96. Koji su implicitni modifikatori za enum varijable?
 
@@ -209,7 +219,7 @@ package graphics;
 - Svi public članovi su dostupni i izvan paketa
 - dohvaćanje pomoću: 
   - njegovog dugog (kvalificiranog) imena
-  - uvozom cijelog paketa
+  - uvozom svih članova paketa
   - uvozom člana paketa
 ---
 ### 106. Koji su elementi i pravila deklaracije uvoza članova nekog paketa?
@@ -350,41 +360,34 @@ vrijednost false
 ---
 ### 124. Navedite osnovne metode Reader klase.
 
-- BufferedReader, 
-- CharArrayReader, 
-- InputStreamReader, 
-- FilterReader, 
-- PipedReader, 
-- StringReader
----
+```java
+int read() // vraća int vrijednost pročitanog znaka
+int read(char cbuf[])
+int read(char cbuf[], int offset, int length)
+```---
 ### 125. Navedite osnovne metode InputStream klase.
 
-- FileInputStream, 
-- PipedInputStream, 
-- FilterInputStream, 
-- ByteArrayInputStream, 
-- SequenceInputStream, 
-- StringBufferInputStream, 
-- ObjectInputStream
+```java
+int read() // vraća int vrijednost pročitanog byta
+int read(byte cbuf[])
+int read(byte cbuf[], int offset, int length)
+```
 ---
 ### 126. Navedite osnovne metode Writer klase.
 
-- BufferedWriter, 
-- CharArrayWriter, 
-- OutputStreamWriter, 
-- FilterWriter, 
-- PipedWriter, 
-- StringWriter, 
-- PrintWriter
+```java
+int write(int c)
+int write(char cbuf[])
+int write(char cbuf[], int offset, int length)
+```
 ---
 ### 127. Navedite osnovne metode OutputStream klase.
 
-- FileOutputStream, 
-- PipedOutputStream, 
-- FilterOutputStream, 
-- ByteArrayOutputStream, 
-- ObjectOutputStream, 
-- OutputStream*
+```java
+int write(int c)
+int write(byte cbuf[])
+int write(byte cbuf[], int offset, int length)
+```
 
 ### THREADS
 ---
@@ -581,7 +584,7 @@ Pozivanjem `join()` metode. Pozivajuća nit metode `join()` ide u wait i nalazi 
 ---
 ### 151. Kako se realizira sekvencijalni dohvat elemenata kolekcije? Opišite metode koje se koriste.
 
-Realizira se iteratorom:
+Iterator se dohvaća putem slijedeće metode Collection interface-a:
 
 `Iterator<E> iterator()`
 

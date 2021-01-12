@@ -3,7 +3,7 @@ interface Runnable?
 
 ```java
 public interface Runnable {
-	public abstract void run();
+    public abstract void run();
 }
 ```
 1. `Runnable r = new Runnable() { };`
@@ -28,26 +28,21 @@ public class Foo {
     Foo() {
         System.out.print("foo");
     }
-
-    public static void main(String[] args) {
-        Foo f = new Foo();
-        f.makeBar();
-    }
-
-    void makeBar() {
-        (new Bar() {
-        }).go();
-    }
-
     class Bar {
         Bar() {
             System.out.print("bar");
         }
-
         public void go() {
-            System.out.print("hi");
+            System.out.print ("hi");
         }
     } /* class Bar ends */
+    public static void main(String[] args) {
+        Foo f = new Foo();
+        f.makeBar();
+    }
+    void makeBar() {
+        (new Bar() {}).go();
+    }
 }
 
 ```
@@ -77,22 +72,20 @@ referenca vanjske klase this:
 #### Što će se ispisati?
 
 ```java
+package enums;
 public enum Color {
     RED("Red Color"),
     GREEN("Blue Color"),
     BLUE("Blue Color");
-    private final String displayName;
-
-    Color(String displayName) {
+    private String displayName;
+    Color(String displayName){
         this.displayName = displayName;
     }
-
-    public String toString() {
+    public String toString(){
         return displayName;
     }
 }
-
-class ColorTest {
+class ColorTest{
     public static void main(String[] args) {
         Color redColor = Color.RED;
         System.out.println(redColor);
@@ -123,18 +116,13 @@ se naziv enum konstante (RED)
 #### Što će se ispisati?
 
 ```java
-enum Color {
-    RED, GREEN, BLUE
-}
-
-public class TestEnum2 {
-    private static void printColor(Color a) {
+public class TestEnum2{
+    private static void printColor(Color a){
         System.out.println(a.ordinal());
     }
-
     public static void main(String[] args) {
         Color redColor = Color.BLUE;
-        switch (redColor) {
+        switch (redColor){
             case BLUE:
                 printColor(redColor);
                 break;
@@ -167,18 +155,19 @@ konstanti; za BLUE to je 2
 
 ```java
 public class X {
-    public static void main(String[] args) {
+    public static void main(String [] args) {
         try {
             badMethod();
             System.out.print("A");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.print("B");
-        } finally {
+        }
+        finally {
             System.out.print("C");
         }
         System.out.print("D");
     }
-
     public static void badMethod() {
         throw new Error();
     }
@@ -205,9 +194,9 @@ prije nego program završi sa Error iznimkom
 #### Što će se ispisati ako su uključene tvrdnje (assert)?
 
 ```java
-for(int i=2;i< 4;i++)
-    for(int j=2;j< 4;j++)
-        assert i!=j:j;
+for(int i = 2; i < 4; i++)
+    for(int j = 2; j < 4; j++)
+        assert i!=j : j;
 ```
 
 1. Neće se ništa ispisati
@@ -226,13 +215,13 @@ vrijednost false
 #### Koji kod treba umetnuti da se ipravno pokrene nit?
 
 ```java
-class X implements Runnable {
-    public static void main(String[] args) {
+class X implements Runnable
+{
+    public static void main(String args[])
+    {
         /* Kod za pokretanje niti? */
     }
-
-    public void run() {
-    }
+    public void run() {}
 }
 ```
 
@@ -270,29 +259,19 @@ Nit se pokreće pozivom metode start
 ```java
 class s1 implements Runnable {
     int x = 0, y = 0;
-
-    public static void main(String[] args) {
+    int addX() {x++; return x;}
+    int addY() {y++; return y;}
+    public void run() {
+        for(int i = 0; i < 10; i++)
+            System.out.println(addX() + " " + addY());
+    }
+    public static void main(String args[]){
         s1 run1 = new s1();
         s1 run2 = new s1();
         Thread t1 = new Thread(run1);
         Thread t2 = new Thread(run2);
         t1.start();
         t2.start();
-    }
-
-    int addX() {
-        x++;
-        return x;
-    }
-
-    int addY() {
-        y++;
-        return y;
-    }
-
-    public void run() {
-        for (int i = 0; i < 10; i++)
-            System.out.println(addX() + " " + addY());
     }
 }
 ```
@@ -331,24 +310,19 @@ duplikati
 ```java
 class Element {
     int i;
-
-    public Element(int i) {
-        this.i = i;
+    public Element(int i){
+        this.i=i;
     }
-
     public boolean equals(Object obj) {
-        return i > 2;
+        return i>2;
     }
-
-    public int hashCode() {
-        return i > 3 ? 0 : 1;
+    public int hashCode(){
+        return i>3 ? 0 : 1;
     }
-
-    public String toString() {
+    public String toString(){
         return "" + i;
     }
 }
-
 public class TestCol {
     public static void main(String[] args) {
         Set<Element> lhs = new LinkedHashSet<Element>();
@@ -398,8 +372,7 @@ Točan odgovor 3)
 ---
 
 ```java
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io..*;
 public class MyProgram {
     public static void main(String[] args) {
         FileOutputStream out = null;
@@ -431,23 +404,19 @@ definirati da može baciti IOException.
 out.close() se ne nalazi unutar odgovarajućeg
 try-catch bloka
 
-
-
-
+---
 
 #### Što će se ispisati?
 
 ```java
 public class Outer {
-    private final int a = 7;
-
+    private int a = 7;
     class Inner {
         public void displayValue() {
             System.out.println("Value of a is " + a);
         }
     }
 }
-
 public class Test {
     public static void main(String... args) throws Exception {
         Outer mo = new Outer();
@@ -479,25 +448,21 @@ class MyThread extends Thread {
     MyThread() {
         System.out.print(" MyThread");
     }
-
     public void run() {
         System.out.print(" bar");
     }
-
     public void run(String s) {
         System.out.println(" baz");
     }
 }
-
 public class TestThreads {
-    public static void main(String[] args) {
+    public static void main (String [] args) {
         Thread t = new MyThread() {
             public void run() {
                 System.out.println(" foo");
             }
         };
-        t.start();
-    }
+        t.start(); } 
 }
 ```
 
