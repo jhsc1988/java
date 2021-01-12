@@ -4,6 +4,8 @@ primjeri
 - kompilacija primjera sa predavanja/interneta
 ---
 
+#### Primjer lokalnih klasa
+
 ```java
 class Base {
     protected int nsf1;
