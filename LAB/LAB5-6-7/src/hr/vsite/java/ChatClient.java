@@ -27,9 +27,9 @@ public class ChatClient {
     private static final Logger log = LoggerFactory.getLogger(ChatClient.class);
     // time
     private final SimpleDateFormat formatter;
-    private JPanel masterPanel;
     // form elementi
     private final JFrame frame;
+    private JPanel masterPanel;
     private JTextArea textArea1;
     private JTextField textField1;
     private JButton Send_button;
@@ -143,15 +143,14 @@ public class ChatClient {
             log.info("update db OK");
         } catch (SQLException e) {
             log.error("update db error", e);
-        } finally {
             try {
                 statement.close();
                 con.close();
-            } catch (SQLException e) {
-                log.error("close() db error");
+            } catch (SQLException ee) {
+                log.error("close() db error", ee);
             }
+            log.info("sendData() exit");
         }
-        log.info("sendData() exit");
     }
 
     private void connect() {
