@@ -6,13 +6,13 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * Klasa sadrži metode za
+ * čitanje i pisanje postavki iz chat.properties
+ * datoteke
+ */
 public class UserConfig {
 
-    /**
-     * Klasa sadrži metode za
-     * čitanje i pisanje postavki iz chat.properties
-     * datoteke
-     */
     private static final String propertiesFile = "chat.properties";
     private static final String hostPropertieName = "host";
     private static final String portPropertieName = "port";
@@ -26,54 +26,33 @@ public class UserConfig {
     private static final Logger log = LoggerFactory.getLogger(UserConfig.class);
 
     public static String getHost() {
-        log.info("getHost() enter");
-
+        log.info("getHost() returning host");
         return host;
     }
 
     public static void setHost(String host) {
-
-        log.info("setHost() enter");
-
+        log.info("setHost() setting host");
         UserConfig.host = host;
-
-        log.info(" host: {} set", host);
-        log.info("setHost() exit");
-
     }
 
     public static int getPort() {
-
-        log.info("getPort() enter");
-
+        log.info("getPort() returning port");
         return port;
     }
 
     public static void setPort(int port) {
-
-        log.info("setPort() enter");
-
+        log.info("setPort() setting port");
         UserConfig.port = port;
-
-        log.info("port: {} set", port);
-        log.info("setPort() exit");
     }
 
     public static String getKorisnik() {
-
-        log.info("getKorisnik() enter");
-
+        log.info("getKorisnik() returning korisnik");
         return korisnik;
     }
 
     public static void setKorisnik(String korisnik) {
-
-        log.info("setKorisnik() enter");
-
+        log.info("setKorisnik() setting korisnik");
         UserConfig.korisnik = korisnik;
-
-        log.info("setKorisnik: {} set", korisnik);
-        log.info("setKorisnik() exit");
     }
 
     public static void loadParams() {
@@ -89,7 +68,6 @@ public class UserConfig {
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Greška u kreiranju nove datoteke", e);
-            is = null;
         }
         try {
             // pokušavaju se učitati parametri
@@ -102,7 +80,7 @@ public class UserConfig {
         // prvi parametar: naziv postavke
         // drugi parametar: ako nije nađena vrijednost onda se vraća drugi parametar
         host = props.getProperty(hostPropertieName, "192.168.0.1");
-        port = Integer.valueOf(props.getProperty(portPropertieName, "8080"));
+        port = Integer.parseInt(props.getProperty(portPropertieName, "8080"));
         korisnik = props.getProperty(userPropertieName, "anonymous");
 
         log.info("loadParams() exit");

@@ -25,8 +25,10 @@ public class ChatClient {
     /////////// variables
     // logger
     private static final Logger log = LoggerFactory.getLogger(ChatClient.class);
+
     // time
     private final SimpleDateFormat formatter;
+
     // form elementi
     private final JFrame frame;
     private JPanel masterPanel;
@@ -34,10 +36,13 @@ public class ChatClient {
     private JTextField textField;
     private JButton Send_button;
     private JButton Postavke;
+
     // statement with params
     private PreparedStatement statement;
+
     // db connection
     private Connection con;
+
     // user string
     private String user;
 
@@ -54,14 +59,17 @@ public class ChatClient {
         frame.setSize(new Dimension(600, 400));
         // frame.pack(); // ovako ne radi setSize();
         frame.setVisible(true);
+
         // properties
         UserConfig.loadParams();
+
         // get user from properties file
         user = UserConfig.getKorisnik();
 
         try {
             SocketConnect();
             con = DbConnect.db_connect();
+
             // statement with params string
             statement = con.prepareStatement("SELECT [user],text,time FROM chat");
 
@@ -142,6 +150,7 @@ public class ChatClient {
         log.info("SocketConnect() enter");
         try (Socket soc = new Socket(UserConfig.getHost(), UserConfig.getPort())) {
             new PrintWriter(soc.getOutputStream());
+
             // chat properties read
             BufferedReader br = new BufferedReader(new InputStreamReader(soc.getInputStream()));
 
