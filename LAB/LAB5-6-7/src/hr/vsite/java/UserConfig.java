@@ -26,62 +26,63 @@ public class UserConfig {
     private static final Logger log = LoggerFactory.getLogger(UserConfig.class);
 
     public static String getHost() {
-        log.info("getHost() Enter");
+        log.info("getHost() enter");
 
         return host;
     }
 
     public static void setHost(String host) {
 
-        log.info("setHost() Enter");
+        log.info("setHost() enter");
 
         UserConfig.host = host;
 
         log.info(" host: {} set", host);
-        log.info("setHost() Exit");
+        log.info("setHost() exit");
 
     }
 
     public static int getPort() {
 
-        log.info("getPort() Enter");
+        log.info("getPort() enter");
 
         return port;
     }
 
     public static void setPort(int port) {
 
-        log.info("setPort() Enter");
+        log.info("setPort() enter");
 
         UserConfig.port = port;
 
         log.info("port: {} set", port);
-        log.info("setPort() Exit");
+        log.info("setPort() exit");
     }
 
     public static String getKorisnik() {
 
-        log.info("getKorisnik() Enter");
+        log.info("getKorisnik() enter");
 
         return korisnik;
     }
 
     public static void setKorisnik(String korisnik) {
 
-        log.info("setKorisnik() Enter");
+        log.info("setKorisnik() enter");
 
         UserConfig.korisnik = korisnik;
 
         log.info("setKorisnik: {} set", korisnik);
-        log.info("setKorisnik() Exit");
+        log.info("setKorisnik() exit");
     }
 
     public static void loadParams() {
-        log.info("loadParams() Enter");
+        log.info("loadParams() enter");
+
         Properties props = new Properties();
         InputStream is = null;
+
         // Najprije pokušavamo učitati iz lokalnog direktorija
-        //
         try {
             File f = new File(propertiesFile);
             is = new FileInputStream(f);
@@ -97,19 +98,19 @@ public class UserConfig {
             e.printStackTrace();
             log.error("Greška u učitavanju parametara", e);
         }
+
         // prvi parametar: naziv postavke
-        // drugi parametar: ako nije nađena vrijednost onda se vraća drugi
-        // parametar
+        // drugi parametar: ako nije nađena vrijednost onda se vraća drugi parametar
         host = props.getProperty(hostPropertieName, "192.168.0.1");
         port = Integer.valueOf(props.getProperty(portPropertieName, "8080"));
         korisnik = props.getProperty(userPropertieName, "anonymous");
 
-        log.info("loadParams() Exit");
+        log.info("loadParams() exit");
     }
 
     public static void saveParamChanges() {
 
-        log.info("saveParamChanges() Enter");
+        log.info("saveParamChanges() enter");
 
         try {
             Properties props = new Properties();
@@ -124,7 +125,7 @@ public class UserConfig {
             log.error("Greška u zapisivanju parametara", e);
         }
 
-        log.info("saveParamChanges() Exit");
+        log.info("saveParamChanges() exit");
     }
 
 }

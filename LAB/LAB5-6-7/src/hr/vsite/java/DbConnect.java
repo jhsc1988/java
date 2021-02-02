@@ -14,6 +14,7 @@ class DbConnect {
 
     public static Connection db_connect() throws SQLException {
         log.info("db_connect() enter");
+
         Connection connection = null;
 
         try {
@@ -24,6 +25,7 @@ class DbConnect {
             log.info("db connection error", e);
             connection.close();
         }
+
         log.info("Database connection OK");
         log.info("db_connect() exit");
         return connection;

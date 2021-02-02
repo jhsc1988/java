@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ChatClient {
-
     // logger
     private static final Logger log = LoggerFactory.getLogger(ChatClient.class);
     // time
@@ -37,25 +36,26 @@ public class ChatClient {
     private JButton Postavke;
     // socket
     private Socket soc;
+    // chat properties r-w
     private BufferedReader br;
     private PrintWriter pw;
+    // date
     private Date date;
     // statement with params
-    private PreparedStatement statement = null;
+    private PreparedStatement statement;
+    // db connection
+    private Connection con;
     // statement string
     private final String selectString = "SELECT [user],text,time FROM chat";
     private final String updateString = "INSERT INTO chat ([user], text, time) VALUES (?,?,?)";
 
-    // db connection
-    private Connection con = null;
-
     public ChatClient() {
-
-        log.info("ChatClient() Enter");
+        log.info("ChatClient() enter");
 
         // date format
         formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
+        // GUI elementi
         frame = new JFrame("ChatClient");
         frame.setContentPane(masterPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,7 +63,7 @@ public class ChatClient {
         // frame.pack(); // ovako ne radi setSize();
         frame.setVisible(true);
 
-        UserConfig postavke = new UserConfig();
+        // properties
         UserConfig.loadParams();
 
         connect();
@@ -126,7 +126,7 @@ public class ChatClient {
     }
 
     private void sendData() {
-        log.info("sendData() Enter");
+        log.info("sendData() enter");
 
         date = new Date();
 
@@ -151,11 +151,11 @@ public class ChatClient {
                 log.error("close() db error");
             }
         }
-        log.info("sendData() Exit");
+        log.info("sendData() exit");
     }
 
     private void connect() {
-        log.info("connect() Enter");
+        log.info("connect() enter");
         try {
 
             soc = new Socket(UserConfig.getHost(), UserConfig.getPort());
@@ -183,7 +183,7 @@ public class ChatClient {
 
             frame.dispose();
         }
-        log.info("connect() Exit");
+        log.info("connect() exit");
     }
 
     {
