@@ -101,7 +101,7 @@ public class UserConfig {
         // drugi parametar: ako nije nađena vrijednost onda se vraća drugi
         // parametar
         host = props.getProperty(hostPropertieName, "192.168.0.1");
-        port = new Integer(props.getProperty(portPropertieName, "8080"));
+        port = Integer.valueOf(props.getProperty(portPropertieName, "8080"));
         korisnik = props.getProperty(userPropertieName, "anonymous");
 
         log.info("loadParams() Exit");
