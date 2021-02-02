@@ -23,7 +23,8 @@ class DbConnect {
             connection = DriverManager.getConnection(connectionUrl);
         } catch (SQLException | ClassNotFoundException e) {
             log.info("db connection error", e);
-            connection.close();
+            if (connection != null)
+                connection.close();
         }
 
         log.info("Database connection OK");

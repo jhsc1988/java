@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -23,6 +21,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ChatClient {
+
+    /////////// variables
     // logger
     private static final Logger log = LoggerFactory.getLogger(ChatClient.class);
     // time
@@ -30,24 +30,16 @@ public class ChatClient {
     // form elementi
     private final JFrame frame;
     private JPanel masterPanel;
-    private JTextArea textArea1;
-    private JTextField textField1;
+    private JTextArea textArea;
+    private JTextField textField;
     private JButton Send_button;
     private JButton Postavke;
-    // socket
-    private Socket soc;
-    // chat properties r-w
-    private BufferedReader br;
-    private PrintWriter pw;
-    // date
-    private Date date;
     // statement with params
     private PreparedStatement statement;
     // db connection
     private Connection con;
-    // statement string
-    private final String selectString = "SELECT [user],text,time FROM chat";
-    private final String updateString = "INSERT INTO chat ([user], text, time) VALUES (?,?,?)";
+    // user string
+    private String user;
 
     public ChatClient() {
         log.info("ChatClient() enter");
@@ -62,49 +54,44 @@ public class ChatClient {
         frame.setSize(new Dimension(600, 400));
         // frame.pack(); // ovako ne radi setSize();
         frame.setVisible(true);
-
         // properties
         UserConfig.loadParams();
-
-        connect();
+        // get user from properties file
+        user = UserConfig.getKorisnik();
 
         try {
+            SocketConnect();
             con = DbConnect.db_connect();
-            statement = con.prepareStatement(selectString);
+            // statement with params string
+            statement = con.prepareStatement("SELECT [user],text,time FROM chat");
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
 
                 //get
-                String user = rs.getString(1);
+                user = rs.getString(1);
                 String text = rs.getString(2);
                 Timestamp time = rs.getTimestamp(3);
 
-                // append to text area
-                textArea1.append(formatter.format(time) + " " + user + ": " + text + "\n");
+                // append to textarea
+                textArea.append(formatter.format(time) + " " + user + ": " + text + "\n");
             }
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             log.error("connection error", e);
         } finally {
-            close_connection(con, statement);
+            closeConnection();
         }
-        Send_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sendData();
-            }
-        });
-        Postavke.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ConfigWindow dialog = new ConfigWindow();
 
-                dialog.setModal(true);
-                dialog.setVisible(true);
-            }
+        /////////// events
+        Send_button.addActionListener(e -> sendData());
+
+        Postavke.addActionListener(e -> {
+            ConfigWindow dialog = new ConfigWindow();
+            dialog.setModal(true);
+            dialog.setVisible(true);
         });
 
-        textField1.addKeyListener(new KeyAdapter() {
+        textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER)
@@ -114,35 +101,28 @@ public class ChatClient {
         log.info("ChatClient() Exit");
     }
 
+    /////////// methods
     public static void main(String[] args) {
-
         log.info("application start");
-
-        ChatClient window = new ChatClient();
+        new ChatClient();
     }
 
-    private void close_connection(Connection c, PreparedStatement p) {
-        try {
-            con.close();
-            p.close();
-        } catch (SQLException ee) {
-            log.error("con.close() error", ee);
-        }
-    }
-
+    /**
+     * metoda upisuje u textArea i db
+     */
     private void sendData() {
         log.info("sendData() enter");
 
-        date = new Date();
+        Date date = new Date();
 
-        String text = textField1.getText();
-        textArea1.append(formatter.format(date) + " " + UserConfig.getKorisnik() + ": " + text + "\n");
-        textField1.setText("");
+        String text = textField.getText();
+        textArea.append(formatter.format(date) + " " + user + ": " + text + "\n");
+        textField.setText("");
 
         try {
             con = DbConnect.db_connect();
-            statement = con.prepareStatement(updateString);
-            statement.setString(1, UserConfig.getKorisnik());
+            statement = con.prepareStatement("INSERT INTO chat ([user], text, time) VALUES (?,?,?)");
+            statement.setString(1, user);
             statement.setString(2, text);
             statement.setTimestamp(3, new Timestamp(date.getTime()));
             statement.executeUpdate();
@@ -150,29 +130,30 @@ public class ChatClient {
         } catch (SQLException e) {
             log.error("update db error", e);
         } finally {
-            close_connection(con, statement);
+            closeConnection();
         }
         log.info("sendData() exit");
     }
 
-    private void connect() {
-        log.info("connect() enter");
-        try {
-
-            soc = new Socket(UserConfig.getHost(), UserConfig.getPort());
-            pw = new PrintWriter(soc.getOutputStream());
-            br = new BufferedReader(new InputStreamReader(soc.getInputStream()));
-            String response;
+    /**
+     * metoda služi spajanje na Socket Server
+     */
+    private void SocketConnect() throws IOException {
+        log.info("SocketConnect() enter");
+        try (Socket soc = new Socket(UserConfig.getHost(), UserConfig.getPort())) {
+            new PrintWriter(soc.getOutputStream());
+            // chat properties read
+            BufferedReader br = new BufferedReader(new InputStreamReader(soc.getInputStream()));
 
             try {
-                response = br.readLine();
-                if (textArea1.getText().length() > 0)
-                    textArea1.append("\n");
-                textArea1.append(response);
-                textArea1.setText(null);
+                String response = br.readLine();
+                if (textArea.getText().length() > 0)
+                    textArea.append("\n");
+                textArea.append(response);
+                textArea.setText(null);
             } catch (IOException e) {
                 log.error("Greška kod čitanja inicijalnog odgovora", e);
-                JOptionPane.showMessageDialog(textArea1, "Greška kod čitanja inicijalnog odgovora", "Greška!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(textArea, "Greška kod čitanja inicijalnog odgovora", "Greška!", JOptionPane.ERROR_MESSAGE);
             }
         } catch (UnknownHostException e) {
             log.error("Nepoznati host", e);
@@ -182,8 +163,23 @@ public class ChatClient {
             log.error("IO iznimka", e);
             log.info("Socket Server vjerojatno nije pokrenut - java; run: java SocketServer is SocketServer foldera");
             frame.dispose();
+        } catch (Exception e) {
+            log.error("Unhandled Exception", e);
+            frame.dispose();
         }
-        log.info("connect() exit");
+        log.info("SocketConnect() exit");
+    }
+
+    /**
+     * zatvaram konekciju na db
+     */
+    private void closeConnection() {
+        try {
+            con.close();
+            statement.close();
+        } catch (SQLException ee) {
+            log.error("con.close() error", ee);
+        }
     }
 
     {
@@ -216,15 +212,15 @@ public class ChatClient {
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
         masterPanel.add(spacer2, gbc);
-        textField1 = new JTextField();
-        textField1.setText("");
+        textField = new JTextField();
+        textField.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 2, 0, 2);
-        masterPanel.add(textField1, gbc);
+        masterPanel.add(textField, gbc);
         Send_button = new JButton();
         Send_button.setBackground(new Color(-13766032));
         Font Send_buttonFont = this.$$$getFont$$$("Segoe UI", Font.PLAIN, 10, Send_button.getFont());
@@ -269,15 +265,15 @@ public class ChatClient {
         gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         masterPanel.add(Postavke, gbc);
-        textArea1 = new JTextArea();
-        textArea1.setText("");
+        textArea = new JTextArea();
+        textArea.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        masterPanel.add(textArea1, gbc);
+        masterPanel.add(textArea, gbc);
     }
 
     /**
