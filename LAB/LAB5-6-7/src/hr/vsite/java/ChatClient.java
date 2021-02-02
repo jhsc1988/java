@@ -85,18 +85,8 @@ public class ChatClient {
             }
         } catch (SQLException e) {
             log.error("connection error", e);
-            try {
-                statement.close();
-                con.close();
-            } catch (SQLException ee) {
-                log.error("con.close() error", ee);
-            }
         } finally {
-            try {
-                con.close();
-            } catch (SQLException ee) {
-                log.error("con.close() error", ee);
-            }
+            close_connection(con, statement);
         }
         Send_button.addActionListener(new ActionListener() {
             @Override
@@ -131,6 +121,15 @@ public class ChatClient {
         ChatClient window = new ChatClient();
     }
 
+    private void close_connection(Connection c, PreparedStatement p) {
+        try {
+            con.close();
+            p.close();
+        } catch (SQLException ee) {
+            log.error("con.close() error", ee);
+        }
+    }
+
     private void sendData() {
         log.info("sendData() enter");
 
@@ -150,20 +149,10 @@ public class ChatClient {
             log.info("update db OK");
         } catch (SQLException e) {
             log.error("update db error", e);
-            try {
-                statement.close();
-                con.close();
-            } catch (SQLException ee) {
-                log.error("close() db error", ee);
-            }
-            log.info("sendData() exit");
         } finally {
-            try {
-                con.close();
-            } catch (SQLException ee) {
-                log.error("con.close() error", ee);
-            }
+            close_connection(con, statement);
         }
+        log.info("sendData() exit");
     }
 
     private void connect() {
@@ -192,7 +181,6 @@ public class ChatClient {
         } catch (IOException e) {
             log.error("IO iznimka", e);
             log.info("Socket Server vjerojatno nije pokrenut - java; run: java SocketServer is SocketServer foldera");
-
             frame.dispose();
         }
         log.info("connect() exit");
