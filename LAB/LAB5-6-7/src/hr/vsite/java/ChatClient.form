@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="hr.vsite.java.ChatClient">
   <grid id="27dc6" binding="masterPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="514" height="373"/>
+      <xy x="20" y="20" width="579" height="373"/>
     </constraints>
     <properties/>
     <border type="none"/>

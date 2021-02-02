@@ -89,7 +89,13 @@ public class ChatClient {
                 statement.close();
                 con.close();
             } catch (SQLException ee) {
-                log.error("connection close error", ee);
+                log.error("con.close() error", ee);
+            }
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ee) {
+                log.error("con.close() error", ee);
             }
         }
         Send_button.addActionListener(new ActionListener() {
@@ -135,6 +141,7 @@ public class ChatClient {
         textField1.setText("");
 
         try {
+            con = DbConnect.db_connect();
             statement = con.prepareStatement(updateString);
             statement.setString(1, UserConfig.getKorisnik());
             statement.setString(2, text);
@@ -150,6 +157,12 @@ public class ChatClient {
                 log.error("close() db error", ee);
             }
             log.info("sendData() exit");
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ee) {
+                log.error("con.close() error", ee);
+            }
         }
     }
 
