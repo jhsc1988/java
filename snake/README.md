@@ -1,1 +1,13 @@
-graphics inspired by [snake by Lio Lim (itch.io)](https://lio-lim.itch.io/snake)
+JAVA project, 2021.
+
+
+
+
+
+![begin](img\begin.png)
+
+
+
+
+
+![gameover](img\gameover.png)
