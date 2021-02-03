@@ -13,7 +13,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     private final int[] snakexLength = new int[750];
     private final int[] snakeyLength = new int[750];
+
     private Timer timer;
+
     private final int[] enemyxpos = {25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625, 650, 675, 700, 725, 750, 775, 800, 825, 850};
     private final int[] enemyypos = {75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625};
     private final Random random = new Random();
@@ -22,6 +24,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean up = false;
     private boolean down = false;
     private int lengthofsnake = 3;
+
     private int xpos = random.nextInt(34); // total xpos
     private int ypos = random.nextInt(23); // total ypos
 
@@ -52,58 +55,50 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             snakeyLength[1] = 100;
             snakeyLength[0] = 100;
         }
-        // draw title image border
+
+        // title
         g.setColor(Color.darkGray);
         g.fillRect(24, 10, 851, 55);
 
-        // draw the title image
-        ImageIcon titleImage = new ImageIcon("fold.png");
-        titleImage.paintIcon(this, g, 25, 11);
-
-        // draw border for gameplay
+        // gameplay border
         g.setColor(Color.BLACK);
         g.drawRect(24, 74, 851, 577);
 
-        // draw background for the gameplay
+        // gameplay background
         g.setColor(Color.darkGray);
         g.fillRect(25, 75, 850, 575);
 
         // draw scores
         g.setColor(new Color(150, 209, 91));
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-        g.drawString("Scores: " + score, 780, 30);
+        g.drawString("Score: " + score, 780, 30);
 
-        // draw length
+        // length
         g.setColor(new Color(150, 209, 91));
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
         g.drawString("Length: " + lengthofsnake, 780, 50);
 
-        ImageIcon rightmouth = new ImageIcon("head.png");
-        rightmouth.paintIcon(this, g, snakexLength[0], snakeyLength[0]);
+        ImageIcon head = new ImageIcon("head.png");
+        head.paintIcon(this, g, snakexLength[0], snakeyLength[0]);
 
-        for (int a = 0; a < lengthofsnake; a++) {
-
-            if (a == 0 && right) {
-                rightmouth = new ImageIcon("head.png");
-                rightmouth.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
-            }
-            if (a == 0 && left) {
-                ImageIcon leftmouth = new ImageIcon("head.png");
-                leftmouth.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
-            }
-            if (a == 0 && down) {
-                ImageIcon downmouth = new ImageIcon("head.png");
-                downmouth.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
-            }
-            if (a == 0 && up) {
-                ImageIcon upmouth = new ImageIcon("head.png");
-                upmouth.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
-            }
-            if (a != 0) {
+        if (lengthofsnake <= 3) {
+            for (int a = 1; a < lengthofsnake; a++) {
                 ImageIcon snakeimage = new ImageIcon("body.png");
                 snakeimage.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
             }
+        } else if (lengthofsnake > 3) {
+            for (int a = 1 ; a < lengthofsnake -3; a++) {
+                ImageIcon snakeimage = new ImageIcon("body.png");
+                snakeimage.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
+            }
+            ImageIcon body1 = new ImageIcon("body1.png");
+            body1.paintIcon(this, g, snakexLength[lengthofsnake - 1], snakeyLength[lengthofsnake - 1]);
 
+            ImageIcon body2 = new ImageIcon("body2.png");
+            body2.paintIcon(this, g, snakexLength[lengthofsnake - 2], snakeyLength[lengthofsnake - 2]);
+
+            ImageIcon body3 = new ImageIcon("body3.png");
+            body3.paintIcon(this, g, snakexLength[lengthofsnake - 3], snakeyLength[lengthofsnake - 3]);
         }
 
         ImageIcon enemyimage = new ImageIcon("enemy.png");
@@ -119,7 +114,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         }
 
         enemyimage.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
-
 
         for (int b = 1; b < lengthofsnake; b++) {
             if (snakexLength[b] == snakexLength[0] && snakeyLength[b] == snakeyLength[0]) {
@@ -137,7 +131,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
                 g.setFont(new Font("minecrafter", Font.BOLD, 20));
                 g.drawString("Any key to RESTART", 350, 340);
-
 
             }
         }
@@ -160,6 +153,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 if (snakexLength[r] > 850) {
                     snakexLength[r] = 25;
                 }
+
             }
             repaint();
         }
