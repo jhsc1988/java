@@ -4,10 +4,10 @@ JAVA project, 2021.
 
 
 
-![begin](img\begin.png)
+![begin](img/begin.png)
 
 
 
 
 
-![gameover](img\gameover.png)
+![gameover](img/gameover.png)
