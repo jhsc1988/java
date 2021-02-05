@@ -6,10 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.*;
+import java.util.Properties;
 import java.util.Random;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
+    // TODO code refactor
+    // TODO not bug free
+    // TODO better exception handling
 
     private final int[] snakexLength = new int[750];
     private final int[] snakeyLength = new int[750];
@@ -29,11 +34,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int ypos = random.nextInt(23); // total ypos
 
     private int score = 0;
+    private int highscore = 0;
+
     private int moves = 0;
     private int delay;
     private int gameover = 0;
 
     private Graphics g;
+
+    private final String highscoreFile = "highscore";
+    private final String highscorePropertie = "highscore";
+
+    Properties props = new Properties();
 
     public Gameplay() {
         addKeyListener(this);
@@ -42,6 +54,37 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         delay = 100;
         timer = new Timer(delay, this);
         timer.start();
+
+        highscore = getHighScore();
+    }
+
+    public int getHighScore() {
+
+        FileInputStream is = null;
+
+        try {
+            File f = new File(highscoreFile);
+            is = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            saveHighScore(0);
+        }
+        try {
+            props.load(is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Integer.parseInt(props.getProperty(highscorePropertie, "0"));
+    }
+
+    public void saveHighScore(int newHighScore) {
+        try {
+            props.setProperty(highscorePropertie, String.valueOf(newHighScore));
+            File f = new File(highscoreFile);
+            OutputStream out = new FileOutputStream(f);
+            props.store(out,"Snakey HighScore");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void paint(Graphics g) {
@@ -68,18 +111,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.darkGray);
         g.fillRect(25, 75, 850, 575);
 
-        // draw scores
-
-        g.setColor(Color.darkGray);
-        g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-        g.drawString("Score: " + score, 583, 33);
-
-        g.setColor(new Color(150, 209, 91));
-        g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-        g.drawString("Score: " + score, 580, 30);
-
-
-
         // snakey
         g.setColor(Color.darkGray);
         g.setFont(new Font("minecrafter", Font.PLAIN, 24));
@@ -89,15 +120,32 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setFont(new Font("minecrafter", Font.PLAIN, 24));
         g.drawString("SNAKEY", 180, 40);
 
+        // scores
+        g.setColor(Color.darkGray);
+        g.setFont(new Font("minecrafter", Font.PLAIN, 14));
+        g.drawString("Score: " + score, 523, 33);
+
+        g.setColor(new Color(150, 209, 91));
+        g.setFont(new Font("minecrafter", Font.PLAIN, 14));
+        g.drawString("Score: " + score, 520, 30);
 
         // length
         g.setColor(Color.darkGray);
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-        g.drawString("Length: " + lengthofsnake, 583, 53);
+        g.drawString("Length: " + lengthofsnake, 523, 53);
 
         g.setColor(new Color(150, 209, 91));
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-        g.drawString("Length: " + lengthofsnake, 580, 50);
+        g.drawString("Length: " + lengthofsnake, 520, 50);
+
+        // highscore
+        g.setColor(Color.darkGray);
+        g.setFont(new Font("minecrafter", Font.PLAIN, 14));
+        g.drawString("Highscore: " + highscore, 683, 33);
+
+        g.setColor(new Color(150, 209, 91));
+        g.setFont(new Font("minecrafter", Font.PLAIN, 14));
+        g.drawString("Highscore: " + highscore, 680, 30);
 
         ImageIcon head = new ImageIcon("head.png");
         head.paintIcon(this, g, snakexLength[0], snakeyLength[0]);
@@ -129,9 +177,18 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         if (enemyxpos[xpos] == snakexLength[0] && enemyypos[ypos] == snakeyLength[0]) {
             score++;
             if (score % 5 == 0){
-                this.delay = delay - 5;
-                timer.setDelay(delay);
+                if (delay - 5 >0) {
+                    this.delay = delay - 5;
+                    timer.setDelay(delay);
+                }
             }
+            if (score > highscore) {
+
+                highscore = score;
+                saveHighScore(score);
+
+            }
+
             lengthofsnake++;
             xpos = random.nextInt(34);
             ypos = random.nextInt(23);
@@ -149,7 +206,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 down = false;
                 up = false;
 
-
                 g.setColor(Color.darkGray);
                 g.setFont(new Font("minecrafter", Font.BOLD, 50));
                 g.drawString("Game Over", 305, 305);
@@ -164,29 +220,27 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 g.setFont(new Font("minecrafter", Font.BOLD, 20));
                 g.drawString("Any key to RESTART", 350, 340);
 
-
-
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 24));
                 g.drawString("SNAKEY", 180, 40);
 
-
                 g.setColor(new Color(237, 87, 130));
                 g.drawRect(24, 74, 851, 577);
 
-
+                g.setColor(new Color(237, 87, 130));
+                g.setFont(new Font("minecrafter", Font.PLAIN, 14));
+                g.drawString("Score: " + score, 520, 30);
 
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-                g.drawString("Score: " + score, 580, 30);
+                g.drawString("Length: " + lengthofsnake, 520, 50);
 
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 14));
-                g.drawString("Length: " + lengthofsnake, 580, 50);
+                g.drawString("Highscore: " + highscore, 680, 30);
 
             }
         }
-
         g.dispose();
 
     }
@@ -270,6 +324,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             lengthofsnake = 3;
             delay = 100;
             timer.setDelay(delay);
+            highscore = getHighScore();
             repaint();
         }
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
