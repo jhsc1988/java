@@ -7,13 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
+import java.net.URL;
 import java.util.Properties;
 import java.util.Random;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     // TODO code refactor
-    // TODO images in .jar
+    // DONE images in .jar
     // TODO not bug free
     // TODO better exception handling
 
@@ -25,28 +26,22 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private final int[] enemyxpos = {25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625, 650, 675, 700, 725, 750, 775, 800, 825, 850};
     private final int[] enemyypos = {75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625};
     private final Random random = new Random();
+    private final String highscoreFile = "highscore";
+    private final String highscorePropertie = "highscore";
+    Properties props = new Properties();
     private boolean left = false;
     private boolean right = false;
     private boolean up = false;
     private boolean down = false;
     private int lengthofsnake = 3;
-
     private int xpos = random.nextInt(34); // total xpos
     private int ypos = random.nextInt(23); // total ypos
-
     private int score = 0;
-    private int highscore = 0;
-
+    private int highscore;
     private int moves = 0;
     private int delay;
     private int gameover = 0;
-
     private Graphics g;
-
-    private final String highscoreFile = "highscore";
-    private final String highscorePropertie = "highscore";
-
-    Properties props = new Properties();
 
     public Gameplay() {
         addKeyListener(this);
@@ -82,7 +77,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             props.setProperty(highscorePropertie, String.valueOf(newHighScore));
             File f = new File(highscoreFile);
             OutputStream out = new FileOutputStream(f);
-            props.store(out,"Snakey HighScore");
+            props.store(out, "Snakey HighScore");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,37 +143,48 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
         g.drawString("Highscore: " + highscore, 680, 30);
 
-        ImageIcon head = new ImageIcon("res/head.png");
+
+        URL headUrl = ClassLoader.getSystemResource("head.png");
+        URL bodyUrl = ClassLoader.getSystemResource("body.png");
+        URL body1Url = ClassLoader.getSystemResource("body1.png");
+        URL body2Url = ClassLoader.getSystemResource("body2.png");
+        URL body3Url = ClassLoader.getSystemResource("body3.png");
+        URL body4Url = ClassLoader.getSystemResource("body4.png");
+        URL enemyUrl = ClassLoader.getSystemResource("enemy.png");
+
+        ImageIcon head = new ImageIcon(headUrl);
+
         head.paintIcon(this, g, snakexLength[0], snakeyLength[0]);
 
         if (lengthofsnake <= 4) {
             for (int a = 1; a < lengthofsnake; a++) {
-                ImageIcon snakeimage = new ImageIcon("res/body.png");
+                ImageIcon snakeimage = new ImageIcon(bodyUrl);
                 snakeimage.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
             }
         } else {
-            for (int a = 1 ; a < lengthofsnake -4; a++) {
-                ImageIcon snakeimage = new ImageIcon("res/body.png");
+            for (int a = 1; a < lengthofsnake - 4; a++) {
+
+                ImageIcon snakeimage = new ImageIcon(bodyUrl);
                 snakeimage.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
             }
-            ImageIcon body1 = new ImageIcon("res/body1.png");
+            ImageIcon body1 = new ImageIcon(body1Url);
             body1.paintIcon(this, g, snakexLength[lengthofsnake - 1], snakeyLength[lengthofsnake - 1]);
 
-            ImageIcon body2 = new ImageIcon("res/body2.png");
+            ImageIcon body2 = new ImageIcon(body2Url);
             body2.paintIcon(this, g, snakexLength[lengthofsnake - 2], snakeyLength[lengthofsnake - 2]);
 
-            ImageIcon body3 = new ImageIcon("res/body3.png");
+            ImageIcon body3 = new ImageIcon(body3Url);
             body3.paintIcon(this, g, snakexLength[lengthofsnake - 3], snakeyLength[lengthofsnake - 3]);
 
-            ImageIcon body4 = new ImageIcon("res/body4.png");
+            ImageIcon body4 = new ImageIcon(body4Url);
             body4.paintIcon(this, g, snakexLength[lengthofsnake - 4], snakeyLength[lengthofsnake - 4]);
         }
 
-        ImageIcon enemyimage = new ImageIcon("res/enemy.png");
+        ImageIcon enemyimage = new ImageIcon(enemyUrl);
         if (enemyxpos[xpos] == snakexLength[0] && enemyypos[ypos] == snakeyLength[0]) {
             score++;
-            if (score % 5 == 0){
-                if (delay - 5 >0) {
+            if (score % 5 == 0) {
+                if (delay - 5 > 0) {
                     this.delay = delay - 5;
                     timer.setDelay(delay);
                 }
@@ -327,11 +333,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             timer.setDelay(delay);
             highscore = getHighScore();
             repaint();
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             moves++;
             right = true;
-
             if (!left) {
                 right = true;
             } else {
@@ -340,48 +344,37 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             }
             down = false;
             up = false;
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             moves++;
             left = true;
-
             if (!right) {
                 left = true;
             } else {
                 left = false;
                 right = true;
             }
-
             down = false;
             up = false;
-        }
-
-        else if (e.getKeyCode() == KeyEvent.VK_UP) {
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             moves++;
             up = true;
-
             if (!down) {
                 up = true;
             } else {
                 up = false;
                 down = true;
             }
-
             left = false;
             right = false;
-        }
-
-        else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             moves++;
             down = true;
-
             if (!up) {
                 down = true;
             } else {
                 down = false;
                 up = true;
             }
-
             left = false;
             right = false;
         }
