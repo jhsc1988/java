@@ -13,6 +13,7 @@ import java.util.Random;
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     // TODO code refactor
+    // TODO images in .jar
     // TODO not bug free
     // TODO better exception handling
 
@@ -147,33 +148,33 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
         g.drawString("Highscore: " + highscore, 680, 30);
 
-        ImageIcon head = new ImageIcon("head.png");
+        ImageIcon head = new ImageIcon("res/head.png");
         head.paintIcon(this, g, snakexLength[0], snakeyLength[0]);
 
         if (lengthofsnake <= 4) {
             for (int a = 1; a < lengthofsnake; a++) {
-                ImageIcon snakeimage = new ImageIcon("body.png");
+                ImageIcon snakeimage = new ImageIcon("res/body.png");
                 snakeimage.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
             }
         } else {
             for (int a = 1 ; a < lengthofsnake -4; a++) {
-                ImageIcon snakeimage = new ImageIcon("body.png");
+                ImageIcon snakeimage = new ImageIcon("res/body.png");
                 snakeimage.paintIcon(this, g, snakexLength[a], snakeyLength[a]);
             }
-            ImageIcon body1 = new ImageIcon("body1.png");
+            ImageIcon body1 = new ImageIcon("res/body1.png");
             body1.paintIcon(this, g, snakexLength[lengthofsnake - 1], snakeyLength[lengthofsnake - 1]);
 
-            ImageIcon body2 = new ImageIcon("body2.png");
+            ImageIcon body2 = new ImageIcon("res/body2.png");
             body2.paintIcon(this, g, snakexLength[lengthofsnake - 2], snakeyLength[lengthofsnake - 2]);
 
-            ImageIcon body3 = new ImageIcon("body3.png");
+            ImageIcon body3 = new ImageIcon("res/body3.png");
             body3.paintIcon(this, g, snakexLength[lengthofsnake - 3], snakeyLength[lengthofsnake - 3]);
 
-            ImageIcon body4 = new ImageIcon("body4.png");
+            ImageIcon body4 = new ImageIcon("res/body4.png");
             body4.paintIcon(this, g, snakexLength[lengthofsnake - 4], snakeyLength[lengthofsnake - 4]);
         }
 
-        ImageIcon enemyimage = new ImageIcon("enemy.png");
+        ImageIcon enemyimage = new ImageIcon("res/enemy.png");
         if (enemyxpos[xpos] == snakexLength[0] && enemyypos[ypos] == snakeyLength[0]) {
             score++;
             if (score % 5 == 0){
