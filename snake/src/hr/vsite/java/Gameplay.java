@@ -13,11 +13,6 @@ import java.util.Random;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
-    // TODO code refactor
-    // DONE images in .jar
-    // TODO not bug free
-    // TODO better exception handling
-
     private final int[] snakexLength = new int[750];
     private final int[] snakeyLength = new int[750];
 
@@ -107,6 +102,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.darkGray);
         g.fillRect(25, 75, 850, 575);
 
+
+
         // snakey
         g.setColor(Color.darkGray);
         g.setFont(new Font("minecrafter", Font.PLAIN, 24));
@@ -143,7 +140,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setFont(new Font("minecrafter", Font.PLAIN, 14));
         g.drawString("Highscore: " + highscore, 680, 30);
 
-
+        // resources - needed for .jar
         URL headUrl = ClassLoader.getSystemResource("head.png");
         URL bodyUrl = ClassLoader.getSystemResource("body.png");
         URL body1Url = ClassLoader.getSystemResource("body1.png");
@@ -153,7 +150,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         URL enemyUrl = ClassLoader.getSystemResource("enemy.png");
 
         ImageIcon head = new ImageIcon(headUrl);
-
         head.paintIcon(this, g, snakexLength[0], snakeyLength[0]);
 
         if (lengthofsnake <= 4) {
@@ -193,7 +189,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
                 highscore = score;
                 saveHighScore(score);
-
             }
 
             lengthofsnake++;
@@ -213,20 +208,25 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 down = false;
                 up = false;
 
+                // Game Over
                 g.setColor(Color.darkGray);
                 g.setFont(new Font("minecrafter", Font.BOLD, 50));
                 g.drawString("Game Over", 305, 305);
-
-                g.setFont(new Font("minecrafter", Font.BOLD, 20));
-                g.drawString("Any key to RESTART", 355, 345);
 
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.BOLD, 50));
                 g.drawString("Game Over", 300, 300);
 
+                // any key to restart
+                g.setColor(Color.darkGray);
+                g.setFont(new Font("minecrafter", Font.BOLD, 20));
+                g.drawString("Any key to RESTART", 355, 345);
+
+                g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.BOLD, 20));
                 g.drawString("Any key to RESTART", 350, 340);
 
+                // SNAKEY
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 24));
                 g.drawString("SNAKEY", 180, 40);
@@ -234,22 +234,23 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 g.setColor(new Color(237, 87, 130));
                 g.drawRect(24, 74, 851, 577);
 
+                //Score
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 14));
                 g.drawString("Score: " + score, 520, 30);
 
+                // length
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 14));
                 g.drawString("Length: " + lengthofsnake, 520, 50);
 
+                //highscore
                 g.setColor(new Color(237, 87, 130));
                 g.setFont(new Font("minecrafter", Font.PLAIN, 14));
                 g.drawString("Highscore: " + highscore, 680, 30);
-
             }
         }
         g.dispose();
-
     }
 
     @Override
@@ -266,7 +267,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 if (snakexLength[r] > 850) {
                     snakexLength[r] = 25;
                 }
-
             }
             repaint();
         }
@@ -283,7 +283,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 }
             }
             repaint();
-
         }
         if (down) {
 
@@ -299,7 +298,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 }
             }
             repaint();
-
         }
         if (up) {
             if (lengthofsnake - 1 + 1 >= 0) System.arraycopy(snakexLength, 0, snakexLength, 1, lengthofsnake - 1 + 1);
@@ -315,11 +313,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             }
             repaint();
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -381,7 +374,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {
+    }
 
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }
